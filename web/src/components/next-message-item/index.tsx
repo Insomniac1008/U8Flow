@@ -152,7 +152,8 @@ function MessageItem({
           [theme === 'dark' ? styles.messageTextDark : styles.messageText]:
             isAssistant,
           [styles.messageUserText]: !isAssistant,
-          'bg-bg-card': !isAssistant,
+          '!rounded-2xl bg-accent-primary/10 dark:bg-accent-primary/18 border-0.5 border-accent-primary/20 shadow-[0_2px_10px_-3px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.28)]':
+            !isAssistant,
         })}
         dir={getDirAttribute(messageContent.replace(citationMarkerReg, ''))}
       >

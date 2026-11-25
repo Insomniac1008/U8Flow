@@ -33,6 +33,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router';
 import StarModal from '@/ee/components/star-modal';
 import { routers } from '@/ee/merge-routes';
+import { AppleLiquidGlassLight } from './components/apple-liquid-glass-light';
 import { ThemeProvider } from './components/theme-provider';
 import { TooltipProvider } from './components/ui/tooltip';
 import { ThemeEnum } from './constants/common';
@@ -82,6 +83,7 @@ const queryClient = new QueryClient({
 function Root({ children }: React.PropsWithChildren) {
   return (
     <>
+      <AppleLiquidGlassLight />
       {children}
 
       <Sonner position="top-right" expand richColors closeButton />

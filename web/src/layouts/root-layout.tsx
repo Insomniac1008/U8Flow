@@ -21,7 +21,7 @@ export function RootLayoutContainer({ children }: React.PropsWithChildren) {
           <AgentSidebarCollapseProvider>
             <ChatSidebarCollapseProvider>
               <div
-                className="size-full min-w-0 grid grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)]"
+                className="size-full min-w-0 grid grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)] apple-window-canvas"
                 ref={containerRef}
               >
                 <div className="col-span-full">

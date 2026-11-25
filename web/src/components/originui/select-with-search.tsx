@@ -276,7 +276,7 @@ export const SelectWithSearch = forwardRef<
             disabled={disabled}
             data-testid={testId}
             className={cn(
-              '!bg-bg-input hover:bg-background border-border-button w-full  justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] [&_svg]:pointer-events-auto group',
+              '!bg-bg-input hover:!bg-bg-component/80 border-border-button w-full justify-between px-3 font-normal outline-offset-0 outline-none apple-focus-ring [&_svg]:pointer-events-auto group',
               triggerClassName,
             )}
           >

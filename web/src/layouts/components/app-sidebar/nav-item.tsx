@@ -53,11 +53,11 @@ export function NavItemLink({ item }: { item: NavItem }) {
         aria-label={t(item.labelKey)}
         aria-current={isActive ? 'page' : undefined}
         className={cn(
-          'h-10 justify-start gap-2.5 px-3 text-base',
+          'h-10 justify-start gap-2.5 px-3 text-base rounded-xl',
           collapsed
             ? 'size-10 justify-center p-0'
             : 'max-md:size-10 max-md:justify-center max-md:p-0',
-          isActive && 'bg-bg-card text-text-primary',
+          isActive && 'apple-nav-active font-medium hover:bg-accent-primary/15',
         )}
       >
         <Icon className="size-5 shrink-0 stroke-[1.5]" />
@@ -109,11 +109,11 @@ export function IntegrationsNavGroup() {
           aria-controls="integrations-nav-children"
           onClick={toggleExpanded}
           className={cn(
-            'h-10 justify-start gap-2.5 px-3 text-base',
+            'h-10 justify-start gap-2.5 px-3 text-base rounded-xl',
             collapsed
               ? 'size-10 justify-center p-0'
               : 'max-md:size-10 max-md:justify-center max-md:p-0',
-            isActive && 'text-text-primary',
+            isActive && 'text-accent-primary font-medium',
           )}
         >
           <Icon className="size-5 shrink-0 stroke-[1.5]" />
@@ -127,7 +127,7 @@ export function IntegrationsNavGroup() {
           </span>
           <LucideChevronDown
             className={cn(
-              'hidden size-4 shrink-0 transition-transform',
+              'hidden size-4 shrink-0 transition-transform duration-300 ease-apple-spring',
               !collapsed && 'md:block',
               expanded && 'rotate-180',
             )}
@@ -156,11 +156,12 @@ export function IntegrationsNavGroup() {
                     aria-label={t(child.labelKey)}
                     aria-current={isChildActive ? 'page' : undefined}
                     className={cn(
-                      'h-9 justify-start px-3 text-sm',
+                      'h-9 justify-start px-3 text-sm rounded-xl',
                       collapsed
                         ? 'size-9 justify-center p-0'
                         : 'max-md:size-9 max-md:justify-center max-md:p-0 md:ps-11',
-                      isChildActive && 'bg-bg-card text-text-primary',
+                      isChildActive &&
+                        'apple-nav-active font-medium hover:bg-accent-primary/15',
                     )}
                   >
                     <span

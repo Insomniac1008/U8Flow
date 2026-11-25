@@ -58,7 +58,7 @@ export function PillToggleGroup({
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className="flex-initial rounded-full border-0.5 border-border-default px-4 text-text-disabled first:rounded-l-full last:rounded-r-full hover:text-text-primary data-[state=on]:bg-bg-card data-[state=on]:text-text-primary"
+          className="flex-initial rounded-full border-0.5 border-border-button bg-bg-component/55 px-4 text-text-secondary backdrop-blur-md apple-pressable apple-focus-ring first:rounded-l-full last:rounded-r-full hover:border-border-default hover:bg-bg-component hover:text-text-primary data-[state=on]:apple-nav-active data-[state=on]:border-accent-primary/30 data-[state=on]:font-medium"
         >
           {option.label}
         </ToggleGroupItem>

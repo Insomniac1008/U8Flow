@@ -42,7 +42,7 @@ export function SideBar() {
   const items = useSettingMenuItems(menuItems(t));
 
   return (
-    <aside className="shrink-0 w-16 md:w-[303px] bg-bg-base flex flex-col overflow-hidden">
+    <aside className="shrink-0 w-16 md:w-[303px] apple-glass-sidebar flex flex-col overflow-hidden">
       <nav className="flex-1 overflow-auto mt-4 py-1">
         <ul className="px-2 md:px-6 flex flex-col gap-2 md:gap-5 items-center md:items-stretch">
           {items.map((item) => {
@@ -56,8 +56,9 @@ export function SideBar() {
                   variant="ghost"
                   aria-label={label}
                   className={cn(
-                    'relative h-10 text-base max-md:size-10 max-md:p-0 max-md:justify-center justify-start gap-2.5 px-2 md:px-3',
-                    activeItemKey === key && 'bg-bg-card text-text-primary',
+                    'relative h-10 text-base rounded-xl max-md:size-10 max-md:p-0 max-md:justify-center justify-start gap-2.5 px-2 md:px-3',
+                    activeItemKey === key &&
+                      'apple-nav-active font-medium hover:bg-accent-primary/15',
                   )}
                   onClick={handleMenuClick(key)}
                 >

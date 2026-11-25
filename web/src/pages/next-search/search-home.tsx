@@ -66,13 +66,18 @@ export default function SearchHome({
     <section className="relative w-full flex transition-all justify-center items-center mt-[15vh]">
       <div className="relative z-10 px-8 pt-8 flex  text-transparent flex-col justify-center items-center w-full max-w-[780px]">
         <RAGFlowLogo showEmbedIcon={showEmbedLogo}></RAGFlowLogo>
-        <div className="rounded-lg  text-primary text-xl sticky flex justify-center w-full transform scale-100 mt-8 p-6 min-h-[240px] border">
+        <div
+          data-apple-specular=""
+          className="rounded-3xl text-primary text-xl sticky flex justify-center w-full transform scale-100 mt-8 p-6 min-h-[240px] border-0.5 apple-glass-heavy apple-specular-surface overflow-hidden"
+        >
           {!isSearching && <Spotlight className="z-0" />}
           <div className="flex flex-col justify-center items-center  w-2/3">
             {!isSearching && (
               <>
-                <p className="mb-4 transition-opacity">👋 Hi there</p>
-                <p className="mb-10 transition-opacity">
+                <p className="mb-4 transition-opacity text-text-primary">
+                  👋 Hi there
+                </p>
+                <p className="mb-10 transition-opacity text-text-secondary">
                   {userInfo && (
                     <>
                       {t('search.welcomeBack')}, {userInfo.nickname}
@@ -88,7 +93,7 @@ export default function SearchHome({
                 rows={1}
                 placeholder={t('search.searchGreeting')}
                 className={cn(
-                  'w-full py-4 px-4 pr-14 text-text-primary text-lg bg-bg-base border border-border-button resize-none scrollbar-thin outline-none focus-visible:ring-1 focus-visible:ring-text-primary/50',
+                  'w-full py-4 px-5 pr-14 text-text-primary text-lg apple-glass-pill border-0.5 resize-none scrollbar-thin outline-none transition-[border-color,box-shadow] duration-200 ease-apple-spring focus-visible:border-accent-primary/65 apple-focus-ring',
                   isMultiLine ? 'rounded-3xl' : 'rounded-full',
                 )}
                 value={searchText}
@@ -113,7 +118,7 @@ export default function SearchHome({
               <button
                 type="button"
                 className={cn(
-                  'absolute right-3 flex size-9 items-center justify-center rounded-full bg-text-primary text-bg-base shadow transition-opacity hover:opacity-90',
+                  'absolute right-3 flex size-9 items-center justify-center rounded-full bg-accent-primary text-white shadow-[0_4px_14px_-2px_rgb(var(--accent-primary)/0.5),inset_0_1px_0_rgba(255,255,255,0.34)] apple-pressable hover:bg-accent-primary/90',
                   isMultiLine ? 'bottom-3' : 'top-1/2 -translate-y-1/2',
                 )}
                 onClick={handleStartSearch}

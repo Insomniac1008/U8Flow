@@ -403,7 +403,7 @@ export const MultiSelect = React.forwardRef<
             id={triggerId}
             onClick={handleTogglePopover}
             className={cn(
-              'flex w-full p-1 rounded-md border border-border-button min-h-10 h-auto placeholder:text-text-disabled items-center justify-between bg-bg-input focus-visible:bg-bg-input hover:bg-bg-input [&_svg]:pointer-events-auto',
+              'flex w-full p-1 rounded-lg border-0.5 border-border-button min-h-10 h-auto placeholder:text-text-disabled items-center justify-between bg-bg-input text-text-primary shadow-[inset_0_1px_2px_rgba(15,23,42,0.04)] hover:border-border-default hover:bg-bg-component/80 hover:shadow-none focus-visible:bg-bg-component focus-visible:border-accent-primary/65 [&_svg]:pointer-events-auto',
               className,
             )}
           >

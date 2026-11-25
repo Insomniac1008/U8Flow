@@ -95,7 +95,7 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
           <div
             ref={ref}
             className={cn(
-              'flex items-center p-1 gap-2 bg-bg-card',
+              'flex items-center p-1 gap-2 bg-bg-card border-0.5 border-border-button/80 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]',
               segmentedVariants.round[rounded],
               segmentedVariants.size[sizeType],
               className,
@@ -112,6 +112,7 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
                   size={buttonSize}
                   variant="static"
                   className={cn(
+                    'font-medium transition-colors duration-200 ease-apple-spring',
                     selectedValue === actualValue && 'text-text-primary',
                     itemClassName,
                     selectedValue === actualValue && activeClassName,
@@ -130,7 +131,7 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
             <div
               className={cn(
                 itemClassName,
-                'absolute bg-bg-base rounded-sm transition-all',
+                'absolute apple-thumb rounded-lg transition-all duration-300 ease-apple-spring',
               )}
               style={{
                 positionAnchor: `--${anchorNamePrefix}-${String(selectedValue).replace('/', '')}`,
@@ -173,7 +174,7 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
           <div
             ref={ref}
             className={cn(
-              'flex items-center p-1 gap-2 bg-bg-card',
+              'flex items-center p-1 gap-2 bg-bg-card border-0.5 border-border-button/80 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]',
               segmentedVariants.round[rounded],
               segmentedVariants.size[sizeType],
               className,
@@ -190,8 +191,9 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
                   size={buttonSize}
                   variant="static"
                   className={cn(
+                    'font-medium transition-all duration-200 ease-apple-spring',
                     {
-                      'text-text-primary bg-bg-base':
+                      'text-text-primary apple-thumb':
                         selectedValue === actualValue,
                     },
                     itemClassName,

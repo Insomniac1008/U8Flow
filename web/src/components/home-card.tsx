@@ -59,12 +59,13 @@ export function HomeCard({
       as="article"
       data-testid={testId}
       data-agent-name={data.name}
+      data-apple-specular={onClick ? '' : undefined}
       onClick={() => {
         onClick?.();
       }}
       tabIndex={onClick ? 0 : undefined}
-      className={`rounded-xl px-2.5 py-4 flex gap-2 items-start group h-full w-full${
-        onClick ? ' hover:shadow-md cursor-pointer' : ''
+      className={`rounded-2xl px-2.5 py-4 flex gap-2 items-start group h-full w-full${
+        onClick ? ' apple-card-interactive cursor-pointer' : ''
       }`}
     >
       <div>

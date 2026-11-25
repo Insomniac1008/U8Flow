@@ -20,7 +20,12 @@ export function ApplicationCard({
   moreDropdown,
 }: ApplicationCardProps) {
   return (
-    <Card className="w-[264px]" onClick={onClick} as="article">
+    <Card
+      className="w-[264px] rounded-2xl apple-card-interactive cursor-pointer"
+      data-apple-specular=""
+      onClick={onClick}
+      as="article"
+    >
       <CardContent className="p-2.5 group flex justify-between w-full">
         <div className="flex items-center gap-2.5 w-full">
           <RAGFlowAvatar
@@ -53,7 +58,8 @@ export type SeeAllAppCardProps = {
 export function SeeAllAppCard({ click }: SeeAllAppCardProps) {
   return (
     <Card
-      className="w-full min-h-[76px] cursor-pointer"
+      className="w-full min-h-[76px] rounded-2xl apple-card-interactive cursor-pointer"
+      data-apple-specular=""
       onClick={click}
       tabIndex={0}
     >

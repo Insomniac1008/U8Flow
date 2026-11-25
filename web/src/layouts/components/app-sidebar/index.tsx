@@ -70,7 +70,7 @@ function AppSidebarContent() {
   return (
     <aside
       className={cn(
-        'flex h-full w-16 shrink-0 flex-col overflow-hidden bg-bg-base transition-[width]',
+        'flex h-full w-16 shrink-0 flex-col overflow-hidden apple-glass-sidebar transition-[width] duration-300 ease-apple-spring',
         !collapsed && 'md:w-60',
         collapsed && activeSecondarySidebar && 'border-r border-border-button',
       )}

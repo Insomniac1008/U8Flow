@@ -58,7 +58,10 @@ function LoginFormContent({
           {title === 'login' ? t('loginTitle') : t('signUpTitle')}
         </h2>
       </div>
-      <div className=" w-full max-w-[540px] bg-bg-component backdrop-blur-sm rounded-2xl shadow-xl pt-14 pl-10 pr-10 pb-2 border border-border-button ">
+      <div
+        data-apple-specular=""
+        className="w-full max-w-[540px] apple-glass-heavy apple-specular-surface rounded-3xl pt-14 pl-10 pr-10 pb-2 border-0.5"
+      >
         <Form {...form}>
           <form
             className="flex flex-col gap-8 text-text-primary "
@@ -164,8 +167,9 @@ function LoginFormContent({
             <ButtonLoading
               data-testid="auth-submit"
               type="submit"
+              variant="metallic"
               loading={loading}
-              className="bg-metallic-gradient border-b-[#00BEB4] border-b-2 hover:bg-metallic-gradient hover:border-b-[#02bcdd] w-full my-8"
+              className="w-full my-8 h-10 rounded-xl font-medium"
             >
               {title === 'login' ? t('login') : t('continue')}
             </ButtonLoading>
@@ -309,20 +313,20 @@ const Login = () => {
 
   return (
     <>
-      <Spotlight opcity={0.4} coverage={60} color={'rgb(128, 255, 248)'} />
+      <Spotlight opcity={0.38} coverage={62} color={'rgb(10, 132, 255)'} />
       <Spotlight
-        opcity={0.3}
-        coverage={12}
-        X={'10%'}
-        Y={'-10%'}
-        color={'rgb(128, 255, 248)'}
+        opcity={0.28}
+        coverage={22}
+        X={'12%'}
+        Y={'-8%'}
+        color={'rgb(94, 92, 230)'}
       />
       <Spotlight
-        opcity={0.3}
-        coverage={12}
-        X={'90%'}
-        Y={'-10%'}
-        color={'rgb(128, 255, 248)'}
+        opcity={0.28}
+        coverage={22}
+        X={'88%'}
+        Y={'-8%'}
+        color={'rgb(90, 200, 250)'}
       />
       <div className=" h-[inherit] relative overflow-auto">
         <BgSvg isPaused />

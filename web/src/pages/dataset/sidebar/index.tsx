@@ -64,7 +64,7 @@ export function SideBar({ dataset: data, onCollapse, onMenuSelect }: PropType) {
   }, [t, extraItems]);
 
   return (
-    <aside className="flex flex-col w-64 relative">
+    <aside className="flex flex-col w-64 relative apple-glass-sidebar">
       <SecondarySidebarHeader title={data.name} onCollapse={onCollapse} />
 
       <nav className="px-5 pt-1 pb-5 overflow-y-auto">
@@ -79,8 +79,9 @@ export function SideBar({ dataset: data, onCollapse, onMenuSelect }: PropType) {
                   block
                   variant="ghost"
                   className={cn(
-                    'justify-start gap-2.5 px-3 relative h-10 text-base',
-                    active && 'bg-bg-card text-text-primary',
+                    'justify-start gap-2.5 px-3 relative h-10 text-base rounded-xl',
+                    active &&
+                      'apple-nav-active font-medium hover:bg-accent-primary/15',
                   )}
                   to={`${Routes.DatasetBase}${item.key}/${id}`}
                   onClick={onMenuSelect}

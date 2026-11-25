@@ -145,7 +145,7 @@ const Modal: ModalType = ({
               type="button"
               onClick={() => handleCancel()}
               className={cn(
-                'px-2 py-1 border border-border-button rounded-md hover:bg-bg-card hover:text-text-primary ',
+                'px-3 py-1.5 text-sm font-medium border-0.5 border-border-button bg-bg-component/80 rounded-lg apple-pressable apple-focus-ring hover:bg-bg-card hover:text-text-primary',
                 cancelButtonClassName,
               )}
             >
@@ -158,8 +158,8 @@ const Modal: ModalType = ({
             onClick={() => handleOk()}
             data-testid={okButtonTestId}
             className={cn(
-              'px-2 py-1 bg-primary text-primary-foreground rounded-md hover:bg-primary/90',
-              { 'cursor-not-allowed': disabled },
+              'px-3 py-1.5 text-sm font-medium bg-accent-primary text-white rounded-lg apple-pressable apple-focus-ring shadow-[0_2px_8px_-2px_rgb(var(--accent-primary)/0.44),inset_0_1px_0_0_rgba(255,255,255,0.32)] hover:bg-accent-primary/90',
+              { 'cursor-not-allowed opacity-45': disabled },
               okButtonClassName,
             )}
           >
@@ -221,13 +221,13 @@ const Modal: ModalType = ({
     <DialogPrimitive.Root open={open} onOpenChange={handleChange}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
-          className="fixed inset-0 z-[1000] bg-bg-card backdrop-blur-[1px] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[1000] bg-black/30 dark:bg-black/55 backdrop-blur-md flex items-center justify-center p-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-300 ease-apple-sheet"
           onClick={() => maskClosable && onOpenChange?.(false)}
           style={{ zIndex: zIndex }}
         >
           <DialogPrimitive.Content
             className={cn(
-              `relative w-[700px] ${full ? 'max-w-full' : sizeClasses[size]} ${className} bg-bg-base rounded-lg shadow-lg border border-border-default transition-all focus-visible:!outline-none`,
+              `relative w-[700px] ${full ? 'max-w-full' : sizeClasses[size]} ${className} apple-glass-heavy rounded-2xl border-0.5 transition-all duration-300 ease-apple-sheet focus-visible:!outline-none`,
               { 'pt-10': closable && !title && !type },
             )}
             data-testid={testId}
@@ -243,7 +243,7 @@ const Modal: ModalType = ({
                 )}
               >
                 {title && (
-                  <DialogPrimitive.Title className="text-lg font-medium text-foreground w-full">
+                  <DialogPrimitive.Title className="text-lg font-semibold tracking-tight text-foreground w-full">
                     {title}
                   </DialogPrimitive.Title>
                 )}
@@ -253,7 +253,7 @@ const Modal: ModalType = ({
               <DialogPrimitive.Close asChild>
                 <button
                   type="button"
-                  className="flex absolute end-5 top-5 h-7 w-7 items-center justify-center text-text-secondary rounded-full hover:text-text-primary focus-visible:outline-none"
+                  className="flex absolute end-5 top-5 h-7 w-7 items-center justify-center text-text-secondary rounded-full apple-pressable hover:bg-bg-card hover:text-text-primary focus-visible:outline-none"
                   onClick={handleCancel}
                 >
                   {closeIcon}

@@ -16,6 +16,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { BrushCleaning } from 'lucide-react';
 import { ReactNode, useId } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -50,7 +51,7 @@ export function BulkOperateBar({
 
   return (
     <Card
-      className={className}
+      className={cn('apple-glass rounded-2xl border-0.5', className)}
       role="menu"
       aria-label={t('common.bulkOperate')}
       aria-describedby={ariaDescriptionId}

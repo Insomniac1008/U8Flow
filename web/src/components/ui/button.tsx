@@ -8,8 +8,9 @@ import { Link, LinkProps } from 'react-router';
 
 const buttonVariants = cva(
   cn(
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm transition-colors outline-none',
-    'disabled:pointer-events-none disabled:opacity-50 rounded border-0.5 border-transparent',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium outline-none',
+    'apple-pressable apple-focus-ring',
+    'disabled:pointer-events-none disabled:opacity-45 border-0.5 border-transparent',
     '[&_svg]:pointer-events-none [&_svg:not([class*="size-"])]:size-4 shrink-0 [&_svg]:shrink-0',
   ),
   {
@@ -17,86 +18,96 @@ const buttonVariants = cva(
       variant: {
         // Solid variant series:
         // Button has its own background color, may have borders
-        default:
-          'bg-text-primary text-bg-base shadow-xs hover:bg-text-primary/90 focus-visible:bg-text-primary/90',
+        default: `
+          bg-accent-primary text-white border-accent-primary/35
+          shadow-[0_2px_8px_-2px_rgb(var(--accent-primary)/0.44),inset_0_1px_0_0_rgba(255,255,255,0.32)]
+          hover:bg-accent-primary/90
+          hover:shadow-[0_6px_18px_-4px_rgb(var(--accent-primary)/0.52),inset_0_1px_0_0_rgba(255,255,255,0.4)]
+          focus-visible:bg-accent-primary/90
+        `,
 
         secondary: `
-          bg-bg-card
-          hover:text-text-primary hover:bg-border-button
+          bg-bg-card text-text-primary border-border-button
+          shadow-[inset_0_1px_0_0_var(--glass-specular-top)]
+          hover:text-text-primary hover:bg-border-button hover:border-border-default
           focus-visible:text-text-primary focus-visible:bg-border-button
         `,
 
         highlighted: `
-          bg-text-primary text-bg-base border-b-4 border-b-accent-primary
-          hover:bg-text-primary/90 focus-visible:bg-text-primary/90
+          bg-accent-primary text-white border-b-2 border-b-white/40
+          shadow-[0_4px_14px_-3px_rgb(var(--accent-primary)/0.5),inset_0_1px_0_0_rgba(255,255,255,0.36)]
+          hover:bg-accent-primary/90 focus-visible:bg-accent-primary/90
         `,
 
         accent: `
-          bg-accent-primary text-white
+          bg-accent-primary text-white border-accent-primary/35
+          shadow-[0_2px_8px_-2px_rgb(var(--accent-primary)/0.44),inset_0_1px_0_0_rgba(255,255,255,0.32)]
           hover:bg-accent-primary/90 focus-visible:bg-accent-primary/90
         `,
 
         destructive: `
-          bg-state-error text-white shadow-xs
-          hover:bg-state-error/90 focus-visible:ring-state-error/20 dark:focus-visible:ring-state-error/40
+          bg-state-error text-white border-state-error/35
+          shadow-[0_2px_8px_-2px_rgb(var(--state-error)/0.42),inset_0_1px_0_0_rgba(255,255,255,0.28)]
+          hover:bg-state-error/90 focus-visible:ring-state-error/25 dark:focus-visible:ring-state-error/40
         `,
 
         // Outline variant series
         // Button has transparent or greyish background, may have borders
         outline: `
-          text-text-secondary bg-bg-input border-0.5 border-border-button
-          hover:text-text-primary hover:bg-border-button hover:border-border-default
-          focus-visible:text-text-primary focus-visible:bg-border-button focus-visible:border-border-button
-        `, // light: bg=transparent, dark: bg-input
+          text-text-primary bg-bg-component/80 border-0.5 border-border-button backdrop-blur-md
+          shadow-[0_1px_2px_rgba(15,23,42,0.04),inset_0_1px_0_0_var(--glass-specular-top)]
+          hover:text-text-primary hover:bg-bg-component hover:border-border-default hover:shadow-apple-sm
+          focus-visible:text-text-primary focus-visible:bg-bg-component focus-visible:border-border-default
+        `,
 
         dashed: `
           text-text-secondary border-border-button border-dashed
-          hover:text-text-primary hover:bg-border-button hover:border-border-default
-          focus-visible:text-text-primary focus-visible:bg-border-button focus-visible:border-border-button
+          hover:text-text-primary hover:bg-bg-card hover:border-border-default
+          focus-visible:text-text-primary focus-visible:bg-bg-card focus-visible:border-border-default
         `,
 
-        icon: 'bg-transparent text-foreground hover:bg-transparent/80',
+        icon: 'bg-transparent text-foreground hover:bg-bg-card',
 
         transparent: `
           text-text-secondary bg-transparent border-0.5 border-border-button
-          hover:text-text-primary hover:bg-border-button
-          focus-visible:text-text-primary focus-visible:bg-border-button focus-visible:border-border-button
+          hover:text-text-primary hover:bg-bg-card hover:border-border-default
+          focus-visible:text-text-primary focus-visible:bg-bg-card focus-visible:border-border-default
         `,
 
         danger: `
-          bg-transparent border border-state-error text-state-error
-          hover:bg-state-error/10 focus-visible:bg-state-error/10
+          bg-state-error/8 border-0.5 border-state-error/40 text-state-error
+          hover:bg-state-error/15 hover:border-state-error/70 focus-visible:bg-state-error/15
         `,
 
         'danger-hover': `
           bg-bg-input border-border-button
-          hover:bg-state-error/10 focus-visible:bg-state-error/10
+          hover:bg-state-error/12 focus-visible:bg-state-error/12
           hover:text-state-error focus-visible:text-state-error
-          hover:border-state-error focus-visible:border-state-error
+          hover:border-state-error/60 focus-visible:border-state-error/60
         `,
 
         // Ghost variant series
         // Button has transparent background, without borders
         ghost: `
           text-text-secondary
-          hover:bg-border-button focus-visible:bg-border-button
+          hover:bg-bg-card focus-visible:bg-bg-card
           hover:text-text-primary focus-visible:text-text-primary
         `,
 
         delete: `
           text-text-secondary
-          hover:bg-state-error-5 hover:text-state-error
-          focus-visible:text-state-error focus-visible:bg-state-error-5
+          hover:bg-state-error/10 hover:text-state-error
+          focus-visible:text-state-error focus-visible:bg-state-error/10
         `,
 
         metallic: `
-          text-bg-base shadow-xs transition-colors
-          border-b-2 border-b-[#00beb4]
-          bg-text-primary
-          hover:bg-text-primary/90 hover:border-b-[#02bcdd]
-          focus-visible:bg-text-primary/90 focus-visible:border-b-[#02bcdd]
+          text-white bg-apple-iridescent dark:bg-apple-iridescent-dark
+          border-0.5 border-white/25
+          shadow-[0_6px_20px_-4px_rgb(var(--accent-primary)/0.5),inset_0_1px_0_0_rgba(255,255,255,0.4)]
+          hover:brightness-105 hover:shadow-[0_10px_26px_-4px_rgb(var(--accent-primary)/0.58),inset_0_1px_0_0_rgba(255,255,255,0.48)]
+          focus-visible:brightness-105
         `,
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-accent-primary underline-offset-4 hover:underline',
 
         // Static
         // Button has no interaction transitions
@@ -107,16 +118,16 @@ const buttonVariants = cva(
         auto: '',
 
         xl: 'h-12 rounded-xl px-5 gap-3',
-        lg: 'h-10 rounded-lg px-4',
-        default: 'h-8 rounded px-3',
-        sm: 'h-7 rounded-sm px-2 gap-1',
-        xs: 'h-6 rounded-xs px-1 gap-0.5',
+        lg: 'h-10 rounded-xl px-4',
+        default: 'h-8 rounded-lg px-3',
+        sm: 'h-7 rounded-lg px-2 gap-1',
+        xs: 'h-6 rounded-md px-1 gap-0.5',
 
         'icon-xl': 'size-12 rounded-xl',
-        'icon-lg': 'size-10 rounded-lg',
-        icon: 'size-8 rounded',
-        'icon-sm': 'size-7 rounded-sm',
-        'icon-xs': 'size-6 rounded-xs',
+        'icon-lg': 'size-10 rounded-xl',
+        icon: 'size-8 rounded-lg',
+        'icon-sm': 'size-7 rounded-lg',
+        'icon-xs': 'size-6 rounded-md',
       },
     },
     defaultVariants: {

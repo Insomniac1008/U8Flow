@@ -69,7 +69,8 @@ export function SeeAllCard() {
 
   return (
     <Card
-      className="w-full flex-none h-full cursor-pointer"
+      className="w-full flex-none h-full rounded-2xl apple-card-interactive cursor-pointer"
+      data-apple-specular=""
       onClick={() => navigateToDatasetList({ isCreate: false })}
     >
       <CardContent className="p-2.5 pt-1 w-full h-full flex items-center justify-center gap-1.5 text-text-secondary">

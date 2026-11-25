@@ -15,10 +15,10 @@ const Switch = React.forwardRef<
     <SwitchPrimitives.Root
       className={cn(
         'group/switch inline-flex h-4 w-7 shrink-0 cursor-pointer items-center rounded-full',
-        'border-2 border-transparent overflow-hidden transition-colors',
-        'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary',
-        'disabled:cursor-not-allowed disabled:opacity-50',
-        'data-[state=checked]:bg-accent-primary data-[state=unchecked]:bg-text-sub-title',
+        'border-2 border-transparent overflow-hidden transition-[background-color,box-shadow] duration-300 ease-apple-spring apple-focus-ring',
+        'shadow-[inset_0_1px_2px_rgba(0,0,0,0.16)]',
+        'disabled:cursor-not-allowed disabled:opacity-45',
+        'data-[state=checked]:bg-accent-primary data-[state=checked]:shadow-[inset_0_1px_2px_rgba(0,0,0,0.12),0_0_10px_-2px_rgb(var(--accent-primary)/0.45)] data-[state=unchecked]:bg-text-sub-title/55',
         className,
       )}
       {...props}
@@ -31,10 +31,12 @@ const Switch = React.forwardRef<
     >
       <SwitchPrimitives.Thumb
         className="
-        pointer-events-none block w-3 h-3 rounded-full bg-white shadow-lg ring-0 transition-all ease-out
-        group-hover/switch:w-4 group-focus-visible/switch:w-4
+        pointer-events-none block w-3 h-3 rounded-full bg-white ring-0
+        shadow-[0_1.5px_4px_rgba(0,0,0,0.28),0_0.5px_1px_rgba(0,0,0,0.16)]
+        transition-all duration-300 ease-apple-bounce
+        group-hover/switch:w-3.5 group-active/switch:w-4 group-focus-visible/switch:w-3.5
         data-[state=checked]:translate-x-3 data-[state=unchecked]:translate-x-0
-        group-hover/switch:data-[state=checked]:translate-x-2 group-focus-visible/switch:data-[state=checked]:translate-x-2
+        group-hover/switch:data-[state=checked]:translate-x-2.5 group-active/switch:data-[state=checked]:translate-x-2 group-focus-visible/switch:data-[state=checked]:translate-x-2.5
       "
       />
     </SwitchPrimitives.Root>

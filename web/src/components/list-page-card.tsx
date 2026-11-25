@@ -10,7 +10,7 @@ export function ListPageCard({
     <div className="size-full min-h-0 min-w-0 py-2.5 pr-2.5">
       <Card
         className={cn(
-          'flex size-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl border border-border-default bg-bg-base shadow-none',
+          'flex size-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl border-0.5 apple-surface-panel',
           className,
         )}
         {...props}

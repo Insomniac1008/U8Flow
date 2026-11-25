@@ -108,7 +108,7 @@ export default function Chat() {
             </header>
 
             <Card
-              className="flex flex-1 min-w-0 min-h-0 flex-col overflow-hidden bg-transparent mr-4"
+              className="flex flex-1 min-w-0 min-h-0 flex-col overflow-hidden rounded-2xl border-0.5 apple-surface-panel mr-4"
               data-testid="chat-detail-content-frame"
             >
               {isDebugMode ? (

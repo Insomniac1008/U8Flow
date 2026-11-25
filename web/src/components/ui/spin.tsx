@@ -34,7 +34,7 @@ export const Spin: React.FC<SpinProps> = ({
       className={cn(
         'relative',
         {
-          'after:content-[""] after:absolute after:inset-0 after:z-10 after:bg-text-primary/40 after:transition-all after:duration-300 h-full w-full':
+          'after:content-[""] after:absolute after:inset-0 after:z-10 after:bg-bg-base/45 after:backdrop-blur-[2px] after:transition-all after:duration-300 after:ease-apple-spring h-full w-full':
             spinning && hasChildren,
         },
         className,
@@ -44,14 +44,14 @@ export const Spin: React.FC<SpinProps> = ({
         <div
           className={cn(
             hasChildren
-              ? 'absolute inset-0 z-10 flex items-center justify-center bg-text-primary/30'
+              ? 'absolute inset-0 z-10 flex items-center justify-center bg-bg-base/30 backdrop-blur-[2px]'
               : 'flex items-center justify-center',
             minSizeClasses[size],
           )}
         >
           <div
             className={cn(
-              'rounded-full border-muted-foreground border-2 border-t-transparent animate-spin',
+              'rounded-full border-accent-primary/80 border-2 border-t-transparent animate-spin',
               sizeClasses[size],
             )}
           ></div>

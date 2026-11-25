@@ -85,11 +85,16 @@ const FileStatusBadge: FC<StatusBadgeProps> = ({ status, name, className }) => {
     }
   };
 
+  const isRunning =
+    status === RunningStatus.RUNNING || status === RunningStatusOld.RUNNING;
+
   return (
     <span
-      className={`inline-flex items-center w-[75px] px-2 py-1 rounded-full text-xs font-medium ${getStatusColor()} ${className}`}
+      className={`inline-flex items-center w-[75px] px-2 py-1 rounded-full text-xs font-medium border-0.5 border-current/15 transition-colors duration-200 ease-apple-spring ${getStatusColor()} ${className}`}
     >
-      <div className={`w-1 h-1 mr-1 rounded-full ${getBgStatusColor()}`}></div>
+      <div
+        className={`w-1.5 h-1.5 mr-1.5 rounded-full ${getBgStatusColor()} ${isRunning ? 'animate-pulse' : ''}`}
+      ></div>
       {name || ''}
     </span>
   );

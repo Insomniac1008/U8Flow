@@ -67,7 +67,7 @@ export const EmptyCard = (props: EmptyCardProps) => {
   return (
     <article
       className={cn(
-        'flex flex-col gap-3 rounded-md border border-dashed border-border-button p-5',
+        'flex flex-col gap-3 rounded-2xl border border-dashed border-border-default bg-bg-component/55 backdrop-blur-md p-5 transition-[border-color,background-color,box-shadow] duration-200 ease-apple-spring hover:border-accent-primary/45 hover:bg-bg-component/80 hover:shadow-apple-sm',
         'w-full items-center justify-center text-center',
         'md:w-fit md:items-start md:justify-start md:text-left',
         className,

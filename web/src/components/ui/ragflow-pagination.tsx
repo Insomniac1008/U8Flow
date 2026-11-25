@@ -156,8 +156,8 @@ export function RAGFlowPagination({
             ) : (
               <PaginationItem
                 key={page}
-                className={cn('text-text-disabled', {
-                  ['bg-bg-card rounded-md text-text-primary']:
+                className={cn('text-text-secondary', {
+                  ['apple-nav-active rounded-lg font-medium']:
                     currentPage === page,
                 })}
               >

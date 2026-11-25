@@ -203,7 +203,7 @@ export function Sessions({
 
   return (
     <aside
-      className="w-[296px] flex flex-col"
+      className="w-[296px] flex flex-col apple-glass-sidebar"
       role="complementary"
       data-testid="chat-detail-sessions"
     >
@@ -347,8 +347,11 @@ export function Sessions({
                   <li
                     key={x.id}
                     className="
-                      group pr-3 flex items-center gap-1 rounded-lg
-                      aria-selected:bg-bg-card has-[>button:focus-visible]:bg-bg-card
+                      group pr-3 flex items-center gap-1 rounded-xl
+                      transition-colors duration-200 ease-apple-spring
+                      hover:bg-bg-card/80
+                      aria-selected:apple-nav-active aria-selected:font-medium
+                      has-[>button:focus-visible]:bg-bg-card
                     "
                     aria-selected={conversationId === x.id}
                   >

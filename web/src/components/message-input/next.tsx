@@ -286,10 +286,13 @@ export function NextMessageInput({
 
       <form
         onSubmit={onSubmit}
+        data-apple-specular=""
         className="
           relative flex w-full flex-col gap-2 rounded-[28px]
-          border-0.5 border-border-default bg-bg-card p-2 outline-none
-          has-[textarea:focus]:outline-accent-primary has-[textarea:focus]:outline-1 has-[textarea:focus]:outline-offset-2
+          border-0.5 apple-glass-pill apple-specular-surface p-2 outline-none
+          transition-[border-color,box-shadow,background-color] duration-200 ease-apple-spring
+          has-[textarea:focus]:border-accent-primary/55
+          has-[textarea:focus]:shadow-[0_0_0_3.5px_rgb(var(--accent-primary)/0.2),var(--glass-shadow)]
         "
       >
         {resize === 'vertical' && (

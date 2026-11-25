@@ -155,33 +155,65 @@ module.exports = {
       },
       backgroundImage: {
         'metallic-gradient':
-          'linear-gradient(104deg, rgb(var(--text-primary)) 30%, var(--metallic) 50%, rgb(var(--text-primary)) 70%)',
+          'linear-gradient(135deg, rgb(var(--accent-primary)) 0%, var(--metallic) 52%, rgb(var(--accent-primary)) 100%)',
+        'apple-iridescent':
+          'linear-gradient(120deg, #007aff 0%, #5856d6 50%, #32ade6 100%)',
+        'apple-iridescent-dark':
+          'linear-gradient(120deg, #409cff 0%, #7d7aff 50%, #64d2ff 100%)',
+      },
+      boxShadow: {
+        'apple-sm':
+          '0 2px 8px -2px rgba(15, 23, 42, 0.08), 0 0 0 0.5px var(--glass-stroke)',
+        'apple-md': 'var(--glass-shadow)',
+        'apple-lg': 'var(--glass-shadow-lg)',
+        'apple-thumb': 'var(--glass-shadow-thumb)',
+      },
+      transitionTimingFunction: {
+        'apple-spring': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'apple-bounce': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'apple-sheet': 'cubic-bezier(0.32, 0.72, 0, 1)',
+        'apple-press': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       },
       borderRadius: {
         px: '1px',
 
-        '4xl': '1rem' /* 16px */,
-        '3xl': '0.75rem' /* 12px */,
-        '2xl': '0.625rem' /* 10px */,
-        xl: '0.5rem' /* 8px */,
-        lg: '0.4375rem' /* 7px */,
-        DEFAULT: '0.375rem' /* 6px */,
-        sm: '0.3125rem' /* 5px */,
-        xs: '0.25rem' /* 4px */,
-        '2xs': '0.1875rem' /* 3px */,
-        '3xs': '0.125' /* 2px */,
+        '4xl': '1.25rem' /* 20px */,
+        '3xl': '1rem' /* 16px */,
+        '2xl': '0.875rem' /* 14px */,
+        xl: '0.75rem' /* 12px */,
+        lg: '0.625rem' /* 10px */,
+        DEFAULT: '0.5rem' /* 8px */,
+        sm: '0.375rem' /* 6px */,
+        xs: '0.3125rem' /* 5px */,
+        '2xs': '0.25rem' /* 4px */,
+        '3xs': '0.125rem' /* 2px */,
       },
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'SF Pro Text',
+          'SF Pro Display',
+          'PingFang SC',
+          'Hiragino Sans GB',
+          'var(--font-sans)',
+          ...fontFamily.sans,
+        ],
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: '0', opacity: '0' },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
+          to: { height: '0', opacity: '0' },
         },
         'caret-blink': {
           '0%,70%,100%': { opacity: '1' },
@@ -198,14 +230,26 @@ module.exports = {
           '15.625%': { transform: 'rotate(-9.5deg)' },
           '21.875%': { transform: 'rotate(7.5deg)' },
         },
+        'apple-shimmer': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'apple-pop': {
+          '0%': { transform: 'scale(0.84)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
+        'accordion-down':
+          'accordion-down 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
+        'accordion-up': 'accordion-up 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
         'caret-blink': 'caret-blink 1.25s ease-out infinite',
         'spin-reverse': 'spin-reverse 1s linear infinite',
         'bell-shake':
           'bell-shake 2s 1s cubic-bezier(0.33, 1, 0.68, 1) infinite',
+        'apple-shimmer':
+          'apple-shimmer 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite',
+        'apple-pop': 'apple-pop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
     },
   },

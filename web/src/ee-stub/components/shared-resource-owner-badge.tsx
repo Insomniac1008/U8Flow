@@ -19,7 +19,7 @@ export function SharedResourceOwnerBadge({
   return (
     <span
       title={typeof children === 'string' ? children : undefined}
-      className="inline-block max-w-[120px] truncate align-middle bg-bg-card rounded-sm px-1 text-xs"
+      className="inline-block max-w-[120px] truncate align-middle bg-bg-card border-0.5 border-border-button rounded-md px-1.5 py-0.5 text-xs text-text-secondary"
     >
       {children}
     </span>

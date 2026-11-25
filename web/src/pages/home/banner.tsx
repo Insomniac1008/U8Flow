@@ -49,7 +49,7 @@ export function NextBanner() {
       <span className="font-semibold text-text-primary">
         {t('header.welcome')}{' '}
       </span>
-      <span className="font-bold text-transparent bg-clip-text bg-gradient-to-l from-[#40EBE3] to-[#4A51FF]">
+      <span className="font-bold tracking-tight text-transparent bg-clip-text bg-apple-iridescent dark:bg-apple-iridescent-dark">
         RAGFlow
       </span>
     </h1>
