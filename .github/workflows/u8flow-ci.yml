@@ -1,0 +1,41 @@
+name: U8Flow CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate U8Flow Customizations
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Validate RBAC Sidecar Python syntax
+        run: python3 -m py_compile docker/u8-rbac/server.py
+
+      - name: Validate U8 Guide JS syntax
+        run: node --check docker/u8-guide/u8-weak-guide.js
+
+      - name: Validate Docker Compose configuration
+        working-directory: docker
+        run: docker compose -f docker-compose.yml config -q
+
+      - name: Check README language files
+        run: |
+          for f in README.md README_en.md README_th.md README_ja.md; do
+            test -s "$f" || { echo "Missing or empty $f"; exit 1; }
+          done
