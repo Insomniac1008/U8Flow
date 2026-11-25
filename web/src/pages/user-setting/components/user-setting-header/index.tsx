@@ -33,13 +33,15 @@ export function ProfileSettingWrapperCard({
   return (
     <Card
       as="article"
-      className="relative w-full border-border-button bg-transparent border-0.5 flex flex-col"
+      className="relative flex-1 min-h-0 h-full w-full overflow-hidden border-border-button bg-transparent border-0.5 flex flex-col"
     >
       <CardHeader className="flex-0 border-b-0.5 border-border-button p-5">
         {header}
       </CardHeader>
 
-      <CardContent className="flex-1 h-0 p-0">{children}</CardContent>
+      <CardContent className="flex-1 min-h-0 h-0 p-0 overflow-y-auto scrollbar-auto">
+        {children}
+      </CardContent>
 
       <Spotlight />
     </Card>

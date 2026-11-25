@@ -90,7 +90,7 @@ const TenantTable = ({ searchTerm }: { searchTerm: string }) => {
 
   return (
     <div className="rounded-lg bg-bg-input scrollbar-auto overflow-hidden border border-border-default">
-      <Table rootClassName="rounded-lg">
+      <Table rootClassName="rounded-lg max-h-[40vh] overflow-y-auto scrollbar-auto">
         <TableHeader className="bg-bg-title">
           <TableRow className="hover:bg-bg-title">
             <TableHead className="h-12 px-4">{t('common.name')}</TableHead>
