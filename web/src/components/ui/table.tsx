@@ -16,7 +16,7 @@ const Table = React.forwardRef<
   <div
     ref={rootRef}
     className={cn(
-      'relative w-full overflow-auto rounded-2xl bg-bg-card scrollbar-auto',
+      'relative w-full overflow-auto rounded-2xl apple-glass-card scrollbar-auto',
       rootClassName,
     )}
   >
@@ -36,7 +36,7 @@ const TableHeader = React.forwardRef<
   <thead
     ref={ref}
     className={cn(
-      '[&_tr]:border-b-0.5 top-0 sticky bg-bg-title z-10',
+      '[&_tr]:border-b-0.5 top-0 sticky bg-bg-title backdrop-blur-xl z-10',
       className,
     )}
     {...props}
@@ -78,7 +78,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      'border-b-0.5 border-border-button transition-colors hover:bg-bg-card data-[state=selected]:bg-bg-card',
+      'border-b-0.5 border-border-button/80 transition-colors duration-150 ease-apple-spring hover:bg-accent-primary/[0.06] data-[state=selected]:bg-accent-primary/10',
       className,
     )}
     {...props}

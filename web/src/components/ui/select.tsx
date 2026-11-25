@@ -25,11 +25,11 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-8 w-full items-center bg-bg-input justify-between rounded-md border-0.5 border-border-button',
-      'px-3 py-2 text-sm outline-none transition-colors text-text-secondary placeholder:text-muted-foreground',
-      'hover:text-text-primary hover:bg-border-button',
-      'focus-visible:text-text-primary focus-visible:bg-border-button',
-      'disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      'flex h-8 w-full items-center bg-bg-input/85 backdrop-blur-sm justify-between rounded-lg border-0.5 border-border-button',
+      'px-3 py-2 text-sm outline-none transition-all duration-200 ease-apple-spring text-text-secondary placeholder:text-muted-foreground',
+      'hover:text-text-primary hover:bg-border-button hover:border-border-default',
+      'focus-visible:text-text-primary focus-visible:border-accent-primary/60 focus-visible:ring-[3.5px] focus-visible:ring-accent-primary/20',
+      'disabled:cursor-not-allowed disabled:opacity-45 [&>span]:line-clamp-1',
       className,
     )}
     {...props}
@@ -85,7 +85,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border-0.5 border-border-card bg-bg-base text-popover-foreground shadow-md',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-2xl apple-glass text-popover-foreground duration-200 ease-apple-sheet',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -132,8 +132,8 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 ps-2 pe-2 text-sm outline-none text-text-secondary',
-      'focus:bg-border-button focus:text-text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-default select-none items-center rounded-lg py-1.5 ps-2.5 pe-7 text-sm outline-none text-text-secondary transition-colors duration-150 ease-apple-spring',
+      'focus:bg-accent-primary/15 focus:text-text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-45',
       className,
     )}
     {...props}

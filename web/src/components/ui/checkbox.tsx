@@ -13,16 +13,16 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'peer size-3.5 shrink-0 rounded-2xs border border-text-disabled outline-none transition-colors bg-transparent',
-      'hover:border-border-default hover:bg-border-button',
-      'focus-visible:border-border-default focus-visible:bg-border-default',
-      'disabled:cursor-not-allowed disabled:opacity-50',
-      'data-[state=checked]:text-text-primary data-[state=checked]:border-text-primary',
+      'peer size-4 shrink-0 rounded-[5px] border border-border-default outline-none transition-all duration-200 ease-apple-spring bg-bg-input/80',
+      'hover:border-accent-primary/60 hover:bg-bg-card',
+      'apple-focus-ring',
+      'disabled:cursor-not-allowed disabled:opacity-45',
+      'data-[state=checked]:bg-accent-primary data-[state=checked]:text-white data-[state=checked]:border-accent-primary data-[state=checked]:shadow-[0_1px_4px_rgb(var(--accent-primary)/0.35)]',
       className,
     )}
     {...props}
   >
-    <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
+    <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current animate-apple-check-pop">
       {props.checked === 'indeterminate' && (
         <LucideMinus className="size-2.5 stroke-[3]" />
       )}

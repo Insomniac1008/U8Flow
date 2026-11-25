@@ -160,28 +160,51 @@ module.exports = {
       borderRadius: {
         px: '1px',
 
-        '4xl': '1rem' /* 16px */,
-        '3xl': '0.75rem' /* 12px */,
-        '2xl': '0.625rem' /* 10px */,
-        xl: '0.5rem' /* 8px */,
-        lg: '0.4375rem' /* 7px */,
-        DEFAULT: '0.375rem' /* 6px */,
-        sm: '0.3125rem' /* 5px */,
+        '4xl': '1.5rem' /* 24px - iOS/macOS large modal sheet */,
+        '3xl': '1.25rem' /* 20px - Liquid Glass dialog */,
+        '2xl': '1rem' /* 16px - Apple card */,
+        xl: '0.75rem' /* 12px - Apple control / popover */,
+        lg: '0.625rem' /* 10px - Apple button / input */,
+        DEFAULT: '0.5rem' /* 8px */,
+        sm: '0.375rem' /* 6px */,
         xs: '0.25rem' /* 4px */,
         '2xs': '0.1875rem' /* 3px */,
-        '3xs': '0.125' /* 2px */,
+        '3xs': '0.125rem' /* 2px */,
+      },
+      boxShadow: {
+        'apple-sm':
+          '0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04)',
+        'apple-md':
+          '0 4px 16px -2px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
+        'apple-lg':
+          '0 18px 44px -8px rgba(0, 0, 0, 0.16), 0 4px 12px -2px rgba(0, 0, 0, 0.08)',
+        'apple-glass':
+          'var(--glass-shadow), inset 0 1px 0 0 var(--glass-highlight)',
+        'apple-glass-lg':
+          'var(--glass-shadow-lg), inset 0 1px 0 0 var(--glass-highlight)',
+      },
+      transitionTimingFunction: {
+        'apple-spring': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'apple-bounce': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'apple-sheet': 'cubic-bezier(0.32, 0.72, 0, 1)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: '0', opacity: '0' },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
+          to: { height: '0', opacity: '0' },
         },
         'caret-blink': {
           '0%,70%,100%': { opacity: '1' },
@@ -198,14 +221,22 @@ module.exports = {
           '15.625%': { transform: 'rotate(-9.5deg)' },
           '21.875%': { transform: 'rotate(7.5deg)' },
         },
+        'apple-check-pop': {
+          '0%': { transform: 'scale(0.5)', opacity: '0' },
+          '70%': { transform: 'scale(1.12)', opacity: '1' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
+        'accordion-down':
+          'accordion-down 0.28s cubic-bezier(0.32, 0.72, 0, 1)',
+        'accordion-up': 'accordion-up 0.22s cubic-bezier(0.32, 0.72, 0, 1)',
         'caret-blink': 'caret-blink 1.25s ease-out infinite',
         'spin-reverse': 'spin-reverse 1s linear infinite',
         'bell-shake':
           'bell-shake 2s 1s cubic-bezier(0.33, 1, 0.68, 1) infinite',
+        'apple-check-pop':
+          'apple-check-pop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
       },
     },
   },

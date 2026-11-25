@@ -4,19 +4,19 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors outline-none focus:outline-none',
+  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium tracking-tight transition-colors duration-200 ease-apple-spring outline-none focus:outline-none',
   {
     variants: {
       variant: {
         default:
           'border-transparent bg-bg-primary text-text-primary hover:bg-primary/80',
         secondary:
-          'border-transparent bg-bg-card text-text-secondary rounded-md',
+          'border-border-button/60 bg-bg-card/85 backdrop-blur-sm text-text-secondary rounded-full',
         success:
-          'border-transparent bg-state-success/5 text-state-success rounded-md',
+          'border-transparent bg-state-success/15 text-state-success rounded-full',
         destructive:
-          'border-transparent bg-state-error/5 text-state-error rounded-md',
-        outline: 'text-foreground',
+          'border-transparent bg-state-error/15 text-state-error rounded-full',
+        outline: 'text-foreground border-border-default',
       },
     },
     defaultVariants: {

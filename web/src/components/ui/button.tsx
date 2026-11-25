@@ -8,8 +8,9 @@ import { Link, LinkProps } from 'react-router';
 
 const buttonVariants = cva(
   cn(
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm transition-colors outline-none',
-    'disabled:pointer-events-none disabled:opacity-50 rounded border-0.5 border-transparent',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium outline-none select-none',
+    'apple-pressable apple-focus-ring',
+    'disabled:pointer-events-none disabled:opacity-45 border-0.5 border-transparent',
     '[&_svg]:pointer-events-none [&_svg:not([class*="size-"])]:size-4 shrink-0 [&_svg]:shrink-0',
   ),
   {
@@ -18,33 +19,34 @@ const buttonVariants = cva(
         // Solid variant series:
         // Button has its own background color, may have borders
         default:
-          'bg-text-primary text-bg-base shadow-xs hover:bg-text-primary/90 focus-visible:bg-text-primary/90',
+          'bg-text-primary text-bg-base shadow-apple-sm hover:bg-text-primary/90 hover:shadow-apple-md focus-visible:bg-text-primary/90',
 
         secondary: `
-          bg-bg-card
+          bg-bg-card backdrop-blur-md border-border-button/60
           hover:text-text-primary hover:bg-border-button
           focus-visible:text-text-primary focus-visible:bg-border-button
         `,
 
         highlighted: `
-          bg-text-primary text-bg-base border-b-4 border-b-accent-primary
-          hover:bg-text-primary/90 focus-visible:bg-text-primary/90
+          bg-text-primary text-bg-base border-b-2 border-b-accent-primary shadow-apple-sm
+          hover:bg-text-primary/90 hover:shadow-apple-md focus-visible:bg-text-primary/90
         `,
 
         accent: `
-          bg-accent-primary text-white
-          hover:bg-accent-primary/90 focus-visible:bg-accent-primary/90
+          bg-accent-primary text-white shadow-[0_2px_10px_-2px_rgb(var(--accent-primary)/0.45),inset_0_1px_0_0_rgba(255,255,255,0.28)]
+          hover:bg-accent-primary/90 hover:shadow-[0_4px_16px_-2px_rgb(var(--accent-primary)/0.55),inset_0_1px_0_0_rgba(255,255,255,0.35)]
+          focus-visible:bg-accent-primary/90
         `,
 
         destructive: `
-          bg-state-error text-white shadow-xs
+          bg-state-error text-white shadow-[0_2px_10px_-2px_rgb(var(--state-error)/0.4),inset_0_1px_0_0_rgba(255,255,255,0.24)]
           hover:bg-state-error/90 focus-visible:ring-state-error/20 dark:focus-visible:ring-state-error/40
         `,
 
         // Outline variant series
         // Button has transparent or greyish background, may have borders
         outline: `
-          text-text-secondary bg-bg-input border-0.5 border-border-button
+          text-text-secondary bg-bg-input/80 backdrop-blur-md border-0.5 border-border-button shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]
           hover:text-text-primary hover:bg-border-button hover:border-border-default
           focus-visible:text-text-primary focus-visible:bg-border-button focus-visible:border-border-button
         `, // light: bg=transparent, dark: bg-input
@@ -55,7 +57,7 @@ const buttonVariants = cva(
           focus-visible:text-text-primary focus-visible:bg-border-button focus-visible:border-border-button
         `,
 
-        icon: 'bg-transparent text-foreground hover:bg-transparent/80',
+        icon: 'bg-transparent text-foreground hover:bg-bg-card/80',
 
         transparent: `
           text-text-secondary bg-transparent border-0.5 border-border-button
@@ -64,7 +66,7 @@ const buttonVariants = cva(
         `,
 
         danger: `
-          bg-transparent border border-state-error text-state-error
+          bg-transparent border border-state-error/70 text-state-error
           hover:bg-state-error/10 focus-visible:bg-state-error/10
         `,
 
@@ -72,14 +74,14 @@ const buttonVariants = cva(
           bg-bg-input border-border-button
           hover:bg-state-error/10 focus-visible:bg-state-error/10
           hover:text-state-error focus-visible:text-state-error
-          hover:border-state-error focus-visible:border-state-error
+          hover:border-state-error/70 focus-visible:border-state-error/70
         `,
 
         // Ghost variant series
         // Button has transparent background, without borders
         ghost: `
           text-text-secondary
-          hover:bg-border-button focus-visible:bg-border-button
+          hover:bg-bg-card focus-visible:bg-bg-card
           hover:text-text-primary focus-visible:text-text-primary
         `,
 
@@ -90,33 +92,32 @@ const buttonVariants = cva(
         `,
 
         metallic: `
-          text-bg-base shadow-xs transition-colors
-          border-b-2 border-b-[#00beb4]
-          bg-text-primary
-          hover:bg-text-primary/90 hover:border-b-[#02bcdd]
-          focus-visible:bg-text-primary/90 focus-visible:border-b-[#02bcdd]
+          text-white shadow-[0_2px_12px_-2px_rgb(var(--accent-primary)/0.45),inset_0_1px_0_0_rgba(255,255,255,0.3)]
+          bg-accent-primary
+          hover:bg-accent-primary/90 hover:shadow-[0_6px_20px_-4px_rgb(var(--accent-primary)/0.55),inset_0_1px_0_0_rgba(255,255,255,0.38)]
+          focus-visible:bg-accent-primary/90
         `,
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-accent-primary underline-offset-4 hover:underline',
 
         // Static
         // Button has no interaction transitions
         static:
-          'text-text-secondary hover:text-text-primary focus-visible:text-text-primary',
+          'text-text-secondary hover:text-text-primary focus-visible:text-text-primary active:scale-100',
       },
       size: {
         auto: '',
 
-        xl: 'h-12 rounded-xl px-5 gap-3',
-        lg: 'h-10 rounded-lg px-4',
-        default: 'h-8 rounded px-3',
-        sm: 'h-7 rounded-sm px-2 gap-1',
-        xs: 'h-6 rounded-xs px-1 gap-0.5',
+        xl: 'h-12 rounded-2xl px-5 gap-3',
+        lg: 'h-10 rounded-xl px-4',
+        default: 'h-8 rounded-lg px-3',
+        sm: 'h-7 rounded-md px-2.5 gap-1',
+        xs: 'h-6 rounded-sm px-1.5 gap-0.5',
 
-        'icon-xl': 'size-12 rounded-xl',
-        'icon-lg': 'size-10 rounded-lg',
-        icon: 'size-8 rounded',
-        'icon-sm': 'size-7 rounded-sm',
-        'icon-xs': 'size-6 rounded-xs',
+        'icon-xl': 'size-12 rounded-2xl',
+        'icon-lg': 'size-10 rounded-xl',
+        icon: 'size-8 rounded-lg',
+        'icon-sm': 'size-7 rounded-md',
+        'icon-xs': 'size-6 rounded-sm',
       },
     },
     defaultVariants: {

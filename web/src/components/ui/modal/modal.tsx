@@ -221,13 +221,13 @@ const Modal: ModalType = ({
     <DialogPrimitive.Root open={open} onOpenChange={handleChange}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
-          className="fixed inset-0 z-[1000] bg-bg-card backdrop-blur-[1px] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[1000] bg-black/35 dark:bg-black/55 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300 ease-apple-sheet data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
           onClick={() => maskClosable && onOpenChange?.(false)}
           style={{ zIndex: zIndex }}
         >
           <DialogPrimitive.Content
             className={cn(
-              `relative w-[700px] ${full ? 'max-w-full' : sizeClasses[size]} ${className} bg-bg-base rounded-lg shadow-lg border border-border-default transition-all focus-visible:!outline-none`,
+              `relative w-[700px] ${full ? 'max-w-full' : sizeClasses[size]} ${className} apple-glass-heavy rounded-3xl transition-all duration-300 ease-apple-sheet data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 focus-visible:!outline-none`,
               { 'pt-10': closable && !title && !type },
             )}
             data-testid={testId}
@@ -253,7 +253,7 @@ const Modal: ModalType = ({
               <DialogPrimitive.Close asChild>
                 <button
                   type="button"
-                  className="flex absolute end-5 top-5 h-7 w-7 items-center justify-center text-text-secondary rounded-full hover:text-text-primary focus-visible:outline-none"
+                  className="flex absolute end-5 top-5 h-7 w-7 items-center justify-center text-text-secondary bg-bg-card/80 rounded-full apple-pressable hover:bg-border-button hover:text-text-primary focus-visible:outline-none"
                   onClick={handleCancel}
                 >
                   {closeIcon}

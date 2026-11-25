@@ -130,7 +130,7 @@ export function UserFooter() {
               aria-label={nickname || email}
               data-testid="settings-entrypoint"
               className={cn(
-                'h-auto justify-start gap-2.5 px-2 py-2',
+                'h-auto justify-start gap-2.5 px-2 py-2 rounded-xl',
                 !collapsed && 'md:min-w-0 md:flex-1',
                 collapsed
                   ? 'size-10 justify-center p-0'

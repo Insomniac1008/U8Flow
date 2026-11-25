@@ -52,13 +52,16 @@ export function PillToggleGroup({
       type="single"
       value={value}
       onValueChange={handleValueChange}
-      className={className ?? 'gap-3'}
+      className={
+        className ??
+        'gap-1 rounded-full bg-bg-card/85 backdrop-blur-md p-1 border-0.5 border-border-button/60'
+      }
     >
       {options.map((option) => (
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className="flex-initial rounded-full border-0.5 border-border-default px-4 text-text-disabled first:rounded-l-full last:rounded-r-full hover:text-text-primary data-[state=on]:bg-bg-card data-[state=on]:text-text-primary"
+          className="flex-initial rounded-full border-0 px-4 text-text-secondary first:rounded-l-full last:rounded-r-full apple-pressable hover:text-text-primary data-[state=on]:bg-bg-component data-[state=on]:text-text-primary data-[state=on]:shadow-apple-sm"
         >
           {option.label}
         </ToggleGroupItem>
