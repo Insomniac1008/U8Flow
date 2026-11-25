@@ -71,7 +71,7 @@ export default function SearchHome({
           className="rounded-3xl text-primary text-xl sticky flex justify-center w-full transform scale-100 mt-8 p-6 min-h-[240px] border-0.5 apple-glass-heavy apple-specular-surface overflow-hidden"
         >
           {!isSearching && <Spotlight className="z-0" />}
-          <div className="flex flex-col justify-center items-center  w-2/3">
+          <div className="relative z-[1] flex flex-col justify-center items-center w-2/3">
             {!isSearching && (
               <>
                 <p className="mb-4 transition-opacity text-text-primary">

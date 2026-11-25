@@ -10,7 +10,7 @@
   const STORAGE_THAI = 'u8_lang_th';
 
   const STEPS = [
-    { key: 'model', labelKey: 'stepModel', route: '/user-setting/model', mod: 'models' },
+    { key: 'model', labelKey: 'stepModel', route: '/integrations/model', mod: 'models' },
     { key: 'datasets', labelKey: 'stepDatasets', route: '/datasets', mod: 'datasets' },
     { key: 'chats', labelKey: 'stepChats', route: '/chats', mod: 'chats' },
     { key: 'agents', labelKey: 'stepAgents', route: '/agents', mod: 'agents' },
@@ -22,7 +22,7 @@
     { key: 'datasets', labelKey: 'modDatasets', route: '/datasets' },
     { key: 'files', labelKey: 'modFiles', route: '/files' },
     { key: 'agents', labelKey: 'modAgents', route: '/agents' },
-    { key: 'models', labelKey: 'modModels', route: '/user-setting/model' },
+    { key: 'models', labelKey: 'modModels', route: '/integrations/model' },
   ];
 
   const LEVEL_ORDER = { none: 0, read: 1, write: 2 };
@@ -406,6 +406,16 @@
   // RAGFlow built-in DOM text translation dictionary for Thai mode
   const THAI_DICT = {
     '首页': 'หน้าแรก', 'Home': 'หน้าแรก',
+    '上下文': 'บริบท', 'Context': 'บริบท',
+    '应用': 'แอปพลิเคชัน', 'Application': 'แอปพลิเคชัน',
+    '工作室': 'สตูดิโอ', 'Studio': 'สตูดิโอ',
+    '文件库': 'คลังไฟล์', 'Library': 'คลังไฟล์',
+    '集成': 'การเชื่อมต่อ', 'Integrations': 'การเชื่อมต่อ',
+    '主题': 'ธีม', 'Theme': 'ธีม',
+    '语言': 'ภาษา', 'Language': 'ภาษา',
+    '帮助': 'ช่วยเหลือ', 'Help': 'ช่วยเหลือ',
+    '收起侧边栏': 'ย่อแถบด้านข้าง', 'Collapse sidebar': 'ย่อแถบด้านข้าง',
+    '展开侧边栏': 'ขยายแถบด้านข้าง', 'Expand sidebar': 'ขยายแถบด้านข้าง',
     '知识库': 'ฐานความรู้', 'Dataset': 'ฐานความรู้', 'Datasets': 'ฐานความรู้', 'Knowledge Base': 'ฐานความรู้',
     '聊天': 'แชท', '对话': 'แชท', 'Chat': 'แชท', 'Chats': 'แชท',
     '搜索': 'ค้นหา', 'Search': 'ค้นหา', 'Searches': 'ค้นหา',
@@ -415,15 +425,16 @@
     '团队权限': 'สิทธิ์ทีม',
     '模型供应商': 'ผู้ให้บริการโมเดล', 'Model providers': 'ผู้ให้บริการโมเดล', 'Model Providers': 'ผู้ให้บริการโมเดล',
     '数据源': 'แหล่งข้อมูล', 'Data Sources': 'แหล่งข้อมูล', 'Data sources': 'แหล่งข้อมูล',
-    '聊天渠道': 'ช่องทางแชท', 'Chat Channels': 'ช่องทางแชท',
+    '聊天渠道': 'ช่องทางแชท', 'Chat Channels': 'ช่องทางแชท', 'Chat channels': 'ช่องทางแชท',
     '团队': 'ทีม', 'Team': 'ทีม',
-    '概要': 'โปรไฟล์', 'Profile': 'โปรไฟล์',
-    '决策模型': 'โมเดลการตัดสินใจ', 'Decision Model': 'โมเดลการตัดสินใจ',
-    '系统模型设置': 'ตั้งค่าโมเดลระบบ', 'System Model Settings': 'ตั้งค่าโมเดลระบบ',
+    '概要': 'โปรไฟล์', '个人资料': 'โปรไฟล์', 'Profile': 'โปรไฟล์',
+    '决策模型': 'โมเดลการตัดสินใจ', 'Decision Model': 'โมเดลการตัดสินใจ', 'Decision model': 'โมเดลการตัดสินใจ',
+    '系统模型设置': 'ตั้งค่าโมเดลระบบ', 'System Model Settings': 'ตั้งค่าโมเดลระบบ', 'System model settings': 'ตั้งค่าโมเดลระบบ',
+    '可用模型': 'โมเดลที่พร้อมใช้งาน', 'Available models': 'โมเดลที่พร้อมใช้งาน',
     '设置默认模型': 'ตั้งค่าโมเดลเริ่มต้น', 'Set default models': 'ตั้งค่าโมเดลเริ่มต้น',
     '添加模型': 'เพิ่มโมเดล', 'Add the model': 'เพิ่มโมเดล',
     '待添加的模型': 'โมเดลที่พร้อมเพิ่ม', '已添加的模型': 'โมเดลที่เพิ่มแล้ว',
-    '创建知识库': 'สร้างฐานความรู้', 'Create knowledge base': 'สร้างฐานความรู้',
+    '创建知识库': 'สร้างฐานความรู้', 'Create knowledge base': 'สร้างฐานความรู้', 'Create dataset': 'สร้างฐานความรู้',
     '新建助理': 'สร้างผู้ช่วยใหม่', '创建聊天': 'สร้างแชท', 'Create chat': 'สร้างแชท',
     '上传文件': 'อัปโหลดไฟล์', 'Upload file': 'อัปโหลดไฟล์', 'Upload': 'อัปโหลด',
     '保存': 'บันทึก', 'Save': 'บันทึก',
@@ -435,7 +446,7 @@
     '设置': 'ตั้งค่า', 'Settings': 'ตั้งค่า',
     '登录': 'เข้าสู่ระบบ', 'Sign in': 'เข้าสู่ระบบ', 'Login': 'เข้าสู่ระบบ',
     '注册': 'สมัครสมาชิก', 'Sign up': 'สมัครสมาชิก',
-    '退出登录': 'ออกจากระบบ', 'Log out': 'ออกจากระบบ', 'Logout': 'ออกจากระบบ',
+    '退出登录': 'ออกจากระบบ', '登出': 'ออกจากระบบ', 'Log out': 'ออกจากระบบ', 'Logout': 'ออกจากระบบ',
     '邮箱': 'อีเมล', 'Email': 'อีเมล',
     '密码': 'รหัสผ่าน', 'Password': 'รหัสผ่าน',
     '名称': 'ชื่อ', 'Name': 'ชื่อ',
@@ -856,7 +867,10 @@
 
   function showGlobalPopover(anchorEl, items, opts) {
     closeGlobalPopover();
-    const rect = anchorEl.getBoundingClientRect();
+    const rect =
+      anchorEl && typeof anchorEl.getBoundingClientRect === 'function'
+        ? anchorEl.getBoundingClientRect()
+        : anchorEl || { left: 20, right: 20, top: 20, bottom: 20, width: 0, height: 0 };
     const isDark =
       document.documentElement.classList.contains('dark') ||
       document.documentElement.getAttribute('data-theme') === 'dark';
@@ -953,10 +967,10 @@
 
     document.body.appendChild(menu);
     const menuRect = menu.getBoundingClientRect();
-    let left = rect.left;
-    let top = rect.bottom + 6;
+    let left = opts && opts.preferRight ? rect.right + 8 : rect.left;
+    let top = opts && opts.preferRight ? rect.top : rect.bottom + 6;
     if (top + menuRect.height > window.innerHeight - 10) {
-      top = Math.max(10, rect.top - menuRect.height - 6);
+      top = Math.max(10, (opts && opts.preferRight ? rect.bottom : rect.top) - menuRect.height - 6);
     }
     if (left + menuRect.width > window.innerWidth - 10) {
       left = Math.max(10, window.innerWidth - menuRect.width - 10);
@@ -1499,6 +1513,29 @@
       host.style.bottom = Math.min(Math.max(12, curB), maxB) + 'px';
     }
 
+    function syncAllGuideToggleSwitches() {
+      const on = isGuideVisible();
+      const isDark =
+        document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark';
+      document.querySelectorAll('[data-u8-guide-toggle="1"]').forEach((container) => {
+        const track = container.querySelector('[data-u8-switch-track="1"]');
+        const thumb = container.querySelector('[data-u8-switch-thumb="1"]');
+        const lbl = container.querySelector('[data-u8-guide-toggle-label="1"]');
+        if (lbl) lbl.textContent = t('brandLabel');
+        if (track) {
+          track.style.background = on
+            ? isDark
+              ? '#0a84ff'
+              : '#007aff'
+            : 'rgba(142, 142, 147, 0.35)';
+        }
+        if (thumb) {
+          thumb.style.transform = on ? 'translateX(16px)' : 'translateX(0)';
+        }
+      });
+    }
+
     function syncTheme() {
       const html = document.documentElement;
       const body = document.body;
@@ -1508,6 +1545,7 @@
         html.getAttribute('data-theme') === 'dark';
       wrap.classList.toggle('is-dark', isDark);
       modalWrap.classList.toggle('is-dark', isDark);
+      syncAllGuideToggleSwitches();
     }
 
     function setCollapsed(collapsed) {
@@ -1522,6 +1560,7 @@
       subDialogBackdrop.classList.add('is-hidden');
       subDialog.classList.remove('is-wide');
       subDialog.innerHTML = '';
+      modalHost.style.zIndex = '20';
     }
 
     subDialogBackdrop.addEventListener('click', (e) => {
@@ -1560,6 +1599,8 @@
             } else {
               sib.style.setProperty('background', 'transparent', 'important');
               sib.style.setProperty('background-color', 'transparent', 'important');
+              sib.style.setProperty('box-shadow', 'none', 'important');
+              sib.style.setProperty('color', inactiveColor, 'important');
               sib.style.setProperty('border-left-color', 'transparent', 'important');
             }
           } else if (sib.dataset.u8SuppressedActive) {
@@ -1598,11 +1639,19 @@
           if (permPageOpen) {
             permBtn.style.setProperty('background', isDark ? 'rgba(10,132,255,0.18)' : 'rgba(0,122,255,0.12)', 'important');
             permBtn.style.setProperty('color', isDark ? '#ffffff' : '#007aff', 'important');
-            permBtn.style.setProperty('border-left', isDark ? '2px solid #0a84ff' : '2px solid #007aff', 'important');
+            permBtn.style.setProperty(
+              'box-shadow',
+              isDark
+                ? '0 2px 8px -2px rgba(0,0,0,0.36), inset 0 1px 0 0 rgba(255,255,255,0.14), inset 0 0 0 0.5px rgba(10,132,255,0.32)'
+                : '0 1px 3px -1px rgba(0,0,0,0.06), inset 0 1px 0 0 rgba(255,255,255,0.5), inset 0 0 0 0.5px rgba(0,122,255,0.18)',
+              'important',
+            );
+            permBtn.style.setProperty('font-weight', '500', 'important');
           } else {
             permBtn.style.setProperty('background', 'transparent', 'important');
             permBtn.style.removeProperty('color');
-            permBtn.style.setProperty('border-left', '2px solid transparent', 'important');
+            permBtn.style.setProperty('box-shadow', 'none', 'important');
+            permBtn.style.removeProperty('font-weight');
           }
         }
       });
@@ -1617,11 +1666,34 @@
       syncNavActiveStates();
     }
 
+    function findPrimarySidebarAside() {
+      const asides = Array.from(document.querySelectorAll('aside'));
+      return (
+        asides.find(
+          (a) =>
+            !isInsideU8Overlay(a) &&
+            (a.querySelector('nav a[href="/datasets"]') || a.querySelector('nav a[href="/chats"]')),
+        ) || null
+      );
+    }
+
     function positionOverlayBelowHeader() {
+      const mainAside = findPrimarySidebarAside();
+      if (mainAside) {
+        const asideW = Math.max(0, Math.round(mainAside.getBoundingClientRect().width));
+        permPage.style.top = '0px';
+        permPage.style.left = asideW + 'px';
+        noAccessPage.style.top = '0px';
+        noAccessPage.style.left = asideW + 'px';
+        readonlyTopPill.style.top = '14px';
+        return;
+      }
       const hdr = document.querySelector('header');
       const topOffset = hdr ? Math.max(48, Math.round(hdr.getBoundingClientRect().height)) : 64;
       permPage.style.top = topOffset + 'px';
+      permPage.style.left = '0px';
       noAccessPage.style.top = topOffset + 'px';
+      noAccessPage.style.left = '0px';
       readonlyTopPill.style.top = topOffset + 10 + 'px';
     }
 
@@ -1815,6 +1887,7 @@
         </div>
       `;
       subDialog.querySelector('[data-role="dlg-close"]').addEventListener('click', closeSubDialog);
+      modalHost.style.zIndex = '60';
       subDialogBackdrop.classList.remove('is-hidden');
     }
 
@@ -1877,6 +1950,7 @@
         }
       });
       subDialogBackdrop.classList.remove('is-hidden');
+      modalHost.style.zIndex = '60';
     }
 
     async function openAuditLogModal() {
@@ -1889,6 +1963,7 @@
         <div style="color:var(--u8-text-muted);font-size:12.5px;">${escapeHtml(t('permLoading'))}</div>
       `;
       subDialog.querySelector('[data-role="dlg-close"]').addEventListener('click', closeSubDialog);
+      modalHost.style.zIndex = '60';
       subDialogBackdrop.classList.remove('is-hidden');
 
       const { status, data } = await rbacFetch('/audit-logs?limit=100');
@@ -2462,6 +2537,46 @@
       });
     }
 
+    function syncTeamPermButtonLayout(btn, asideEl) {
+      if (!btn || btn.dataset.u8NavMode === 'horizontal') return;
+      const isCollapsed = Boolean(asideEl && asideEl.getBoundingClientRect().width <= 88);
+      const lbl = btn.querySelector('[data-u8-nav-perm-label="1"]');
+      btn.title = t('navTeamPerm');
+      btn.setAttribute('aria-label', t('navTeamPerm'));
+      if (isCollapsed) {
+        btn.style.width = '40px';
+        btn.style.height = '40px';
+        btn.style.paddingLeft = '0px';
+        btn.style.paddingRight = '0px';
+        btn.style.marginLeft = 'auto';
+        btn.style.marginRight = 'auto';
+        btn.style.justifyContent = 'center';
+        btn.style.gap = '0px';
+        if (lbl) lbl.style.display = 'none';
+      } else {
+        btn.style.width = '100%';
+        btn.style.height = '40px';
+        btn.style.paddingLeft = '12px';
+        btn.style.paddingRight = '12px';
+        btn.style.marginLeft = '0px';
+        btn.style.marginRight = '0px';
+        btn.style.justifyContent = 'flex-start';
+        btn.style.gap = '10px';
+        if (lbl) lbl.style.display = '';
+      }
+    }
+
+    function observeSidebarResize(asideEl) {
+      if (!asideEl || asideEl.dataset.u8AsideResizeBound || typeof ResizeObserver === 'undefined') return;
+      asideEl.dataset.u8AsideResizeBound = '1';
+      const ro = new ResizeObserver(() => {
+        positionOverlayBelowHeader();
+        const btn = asideEl.querySelector('button[data-u8-nav-perm="1"]');
+        if (btn) syncTeamPermButtonLayout(btn, asideEl);
+      });
+      ro.observe(asideEl);
+    }
+
     function enhanceSidebarTeamPerm() {
       const isOwner = Boolean(meState && meState.is_owner);
       if (!isOwner) {
@@ -2470,6 +2585,11 @@
       }
 
       const navs = Array.from(document.querySelectorAll('nav')).filter((n) => {
+        if (isInsideU8Overlay(n)) return false;
+        const hasModernRoutes =
+          Boolean(n.querySelector('a[href="/datasets"]')) &&
+          Boolean(n.querySelector('a[href="/files"]') || n.querySelector('a[href="/chats"]'));
+        if (hasModernRoutes) return true;
         const txt = n.textContent || '';
         return (
           (txt.includes('知识库') || txt.includes('Dataset') || txt.includes('ฐานความรู้')) &&
@@ -2478,6 +2598,9 @@
       });
 
       navs.forEach((nav) => {
+        const asideEl = nav.closest('aside');
+        if (asideEl) observeSidebarResize(asideEl);
+
         nav.querySelectorAll('a, button:not([data-u8-nav-perm="1"])').forEach((sib) => {
           if (!sib.dataset.u8ClosePermBound) {
             sib.dataset.u8ClosePermBound = '1';
@@ -2491,6 +2614,7 @@
         if (existing) {
           const lbl = existing.querySelector('[data-u8-nav-perm-label="1"]');
           if (lbl) lbl.textContent = t('navTeamPerm');
+          syncTeamPermButtonLayout(existing, asideEl);
           syncNavActiveStates();
           return;
         }
@@ -2498,6 +2622,7 @@
         const ul = nav.querySelector('ul');
         const container = ul || nav;
         const sampleLink =
+          container.querySelector('a[href="/team"]') ||
           container.querySelector('a[href*="/files"]') ||
           Array.from(container.querySelectorAll('a')).find((a) => (a.textContent || '').trim().length > 0) ||
           container.querySelector('a') ||
@@ -2506,7 +2631,8 @@
 
         const rect = nav.getBoundingClientRect();
         const inDrawer = Boolean(nav.closest('[role="dialog"], [data-radix-dialog-content]'));
-        const isHorizontal = !inDrawer && (Boolean(nav.closest('header')) || rect.width > rect.height * 1.5);
+        const isHorizontal =
+          !inDrawer && !asideEl && (Boolean(nav.closest('header')) || rect.width > rect.height * 1.5);
 
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -2524,13 +2650,15 @@
               !c.includes('bg-text-primary') &&
               !c.includes('text-bg-base') &&
               !c.includes('shadow-') &&
-              !c.includes('border-l-'),
+              !c.includes('border-l-') &&
+              !c.includes('font-medium') &&
+              !c.includes('hover:bg-accent-primary'),
           )
           .join(' ');
         btn.className = siblingClasses;
         btn.style.cursor = 'pointer';
         btn.style.border = 'none';
-        btn.style.transition = 'all 0.16s ease';
+        btn.style.transition = 'all 0.18s cubic-bezier(0.22,1,0.36,1)';
 
         const labelText = t('navTeamPerm');
         if (isHorizontal) {
@@ -2546,16 +2674,13 @@
           btn.innerHTML = `<span data-u8-nav-perm-label="1">${escapeHtml(labelText)}</span>`;
         } else {
           const cs = window.getComputedStyle(sampleLink);
-          btn.style.width = '100%';
           btn.style.display = 'flex';
           btn.style.alignItems = 'center';
-          btn.style.gap = cs.gap && cs.gap !== 'normal' ? cs.gap : '12px';
-          btn.style.paddingLeft = cs.paddingLeft || '20px';
-          btn.style.paddingRight = cs.paddingRight || '16px';
-          btn.style.height = cs.height && cs.height !== 'auto' ? cs.height : '44px';
-          btn.style.fontSize = cs.fontSize || '14px';
+          btn.style.borderRadius = '12px';
+          btn.style.fontSize = cs.fontSize || '15px';
           btn.style.textAlign = 'left';
-          btn.innerHTML = `${SHIELD_ICON_SVG}<span data-u8-nav-perm-label="1" class="truncate">${escapeHtml(labelText)}</span>`;
+          btn.innerHTML = `${SHIELD_ICON_SVG.replace('width="16" height="16"', 'width="20" height="20"')}<span data-u8-nav-perm-label="1" class="truncate">${escapeHtml(labelText)}</span>`;
+          syncTeamPermButtonLayout(btn, asideEl);
         }
 
         btn.addEventListener('mouseenter', () => {
@@ -2564,7 +2689,7 @@
           if (isHorizontal) {
             btn.style.setProperty('color', isDark ? '#ffffff' : '#161618', 'important');
           } else {
-            btn.style.setProperty('background', isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)', 'important');
+            btn.style.setProperty('background', isDark ? 'rgba(255,255,255,0.068)' : 'rgba(120,120,128,0.085)', 'important');
           }
         });
         btn.addEventListener('mouseleave', () => syncNavActiveStates());
@@ -2580,7 +2705,13 @@
           const sampleLi = sampleLink.closest('li');
           if (sampleLi && sampleLi.className) li.className = sampleLi.className;
           li.appendChild(btn);
-          ul.appendChild(li);
+          const teamLink = ul.querySelector('a[href="/team"]');
+          const teamLi = teamLink && teamLink.closest('li');
+          if (teamLi && teamLi.parentNode === ul) {
+            teamLi.insertAdjacentElement('afterend', li);
+          } else {
+            ul.appendChild(li);
+          }
         } else {
           container.appendChild(btn);
         }
@@ -2588,73 +2719,135 @@
       });
     }
 
-    function enhanceUserSettingGuideToggle() {
-      if (!window.location.pathname.startsWith('/user-setting')) return;
-      const asides = Array.from(document.querySelectorAll('aside nav'));
-      const settingNav = asides.find((n) => {
-        const txt = n.textContent || '';
-        return (
-          (txt.includes('模型供应商') || txt.includes('Model') || txt.includes('ผู้ให้บริการโมเดล')) &&
-          txt.includes('API')
-        );
-      });
-      if (!settingNav) return;
-
-      const ul = settingNav.querySelector('ul') || settingNav;
-      if (ul.querySelector('[data-u8-guide-toggle="1"]')) {
-        const lbl = ul.querySelector('[data-u8-guide-toggle-label="1"]');
-        if (lbl) lbl.textContent = t('brandLabel');
-        return;
-      }
-
-      const li = document.createElement(ul.tagName === 'UL' ? 'li' : 'div');
-      li.setAttribute('data-u8-guide-toggle', '1');
-      li.className = 'w-full md:w-auto';
-
+    function createGuideToggleRow(compactMode) {
       const row = document.createElement('div');
-      row.style.cssText =
-        'display:flex;align-items:center;justify-content:space-between;height:40px;padding:0 12px;border-radius:8px;cursor:pointer;gap:10px;transition:background 0.15s ease;';
+      row.setAttribute('role', 'switch');
+      row.setAttribute('tabindex', '0');
+      row.setAttribute('aria-checked', String(isGuideVisible()));
+      row.style.cssText = compactMode
+        ? 'display:flex;align-items:center;justify-content:space-between;height:38px;padding:0 12px;border-radius:10px;cursor:pointer;gap:10px;border:0.5px solid var(--border-button, rgba(120,120,128,0.18));background:var(--bg-card, rgba(120,120,128,0.08));transition:background 0.18s ease, border-color 0.18s ease;'
+        : 'display:flex;align-items:center;justify-content:space-between;height:40px;padding:0 12px;border-radius:12px;cursor:pointer;gap:10px;transition:background 0.18s ease;';
       row.innerHTML = `
-        <span style="display:flex;align-items:center;gap:10px;font-size:15px;min-width:0;">
+        <span style="display:flex;align-items:center;gap:10px;font-size:${compactMode ? '14px' : '15px'};min-width:0;">
           ${GUIDE_ICON_SVG}
-          <span data-u8-guide-toggle-label="1" class="hidden md:inline truncate">${escapeHtml(t('brandLabel'))}</span>
+          <span data-u8-guide-toggle-label="1" class="${compactMode ? 'truncate' : 'hidden md:inline truncate'}">${escapeHtml(t('brandLabel'))}</span>
         </span>
         <span data-u8-switch-track="1" style="position:relative;display:inline-flex;align-items:center;width:36px;height:20px;border-radius:999px;flex-shrink:0;box-shadow:inset 0 1px 2px rgba(0,0,0,0.16);transition:background 0.25s cubic-bezier(0.22,1,0.36,1);">
           <span data-u8-switch-thumb="1" style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#ffffff;box-shadow:0 1.5px 4px rgba(0,0,0,0.28);transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1);"></span>
         </span>
       `;
 
-      const track = row.querySelector('[data-u8-switch-track="1"]');
-      const thumb = row.querySelector('[data-u8-switch-thumb="1"]');
-
-      function syncSwitchUI() {
-        const on = isGuideVisible();
-        const isDark = document.documentElement.classList.contains('dark');
-        track.style.background = on
-          ? isDark
-            ? '#0a84ff'
-            : '#007aff'
-          : 'rgba(142, 142, 147, 0.35)';
-        thumb.style.transform = on ? 'translateX(16px)' : 'translateX(0)';
-      }
-
-      row.addEventListener('click', () => {
+      const toggleGuide = () => {
         const next = !isGuideVisible();
         try {
           localStorage.setItem(STORAGE_VISIBLE, next ? '1' : '0');
         } catch (_) {}
-        syncSwitchUI();
+        row.setAttribute('aria-checked', String(next));
+        syncAllGuideToggleSwitches();
         applyGuideVisibility();
         showToast(next ? t('guideOnToast') : t('guideOffToast'));
-      });
+      };
 
-      syncSwitchUI();
-      li.appendChild(row);
-      ul.appendChild(li);
+      row.addEventListener('click', toggleGuide);
+      row.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          toggleGuide();
+        }
+      });
+      return row;
+    }
+
+    function enhanceUserSettingGuideToggle() {
+      const p = window.location.pathname || '';
+
+      // 1. User Settings left sidebar (/user-setting/profile, /user-setting/api)
+      if (p.startsWith('/user-setting')) {
+        const asides = Array.from(document.querySelectorAll('aside nav'));
+        const settingNav = asides.find((n) => {
+          if (isInsideU8Overlay(n)) return false;
+          const txt = n.textContent || '';
+          return (
+            txt.includes('API') &&
+            (txt.includes('概要') ||
+              txt.includes('个人资料') ||
+              txt.includes('Profile') ||
+              txt.includes('โปรไฟล์') ||
+              txt.includes('模型供应商') ||
+              txt.includes('Model') ||
+              txt.includes('ผู้ให้บริการโมเดล'))
+          );
+        });
+        if (settingNav) {
+          const ul = settingNav.querySelector('ul') || settingNav;
+          if (!ul.querySelector('[data-u8-guide-toggle="1"]')) {
+            const li = document.createElement(ul.tagName === 'UL' ? 'li' : 'div');
+            li.setAttribute('data-u8-guide-toggle', '1');
+            li.className = 'w-full md:w-auto';
+            li.appendChild(createGuideToggleRow(false));
+            ul.appendChild(li);
+          }
+          syncAllGuideToggleSwitches();
+        }
+      }
+
+      // 2. Model Providers left sidebar (/integrations/model)
+      if (p.includes('/model')) {
+        const defaultModelsBtn = document.querySelector('[data-testid="sidebar-default-models"]');
+        const modelSidebar = defaultModelsBtn && defaultModelsBtn.parentElement;
+        if (modelSidebar && !modelSidebar.querySelector('[data-u8-guide-toggle="1"]')) {
+          const wrapRow = document.createElement('div');
+          wrapRow.setAttribute('data-u8-guide-toggle', '1');
+          wrapRow.appendChild(createGuideToggleRow(true));
+          defaultModelsBtn.insertAdjacentElement('afterend', wrapRow);
+        }
+        syncAllGuideToggleSwitches();
+      }
+    }
+
+    function openGithubPopoverForAnchor(anchorRect) {
+      showGlobalPopover(
+        anchorRect,
+        [
+          {
+            title: t('githubMenuRagflow'),
+            desc: t('githubMenuRagflowDesc'),
+            onClick: () => window.open('https://github.com/infiniflow/ragflow', '_blank', 'noopener,noreferrer'),
+          },
+          {
+            title: t('githubMenuAuthor'),
+            desc: t('githubMenuAuthorDesc'),
+            onClick: () => window.open('https://github.com/Insomniac1008', '_blank', 'noopener,noreferrer'),
+          },
+        ],
+        { preferRight: true },
+      );
+    }
+
+    function openHelpPopoverForAnchor(anchorRect) {
+      showGlobalPopover(
+        anchorRect,
+        [
+          {
+            title: t('helpMenuRagflow'),
+            desc: t('helpMenuRagflowDesc'),
+            onClick: () =>
+              window.open('https://ragflow.io/docs/dev/category/user-guides', '_blank', 'noopener,noreferrer'),
+          },
+          {
+            title: t('helpMenuU8'),
+            desc: t('helpMenuU8Desc'),
+            onClick: () => openHelpModal(),
+          },
+        ],
+        { preferRight: true },
+      );
     }
 
     function enhanceExternalLinks() {
+      // 1. Legacy <a> links
       document.querySelectorAll('a').forEach((a) => {
+        if (isInsideU8Overlay(a)) return;
         const href = (a.getAttribute('href') || '').toLowerCase();
         const txt = (a.textContent || '').trim();
 
@@ -2716,19 +2909,85 @@
           );
         }
       });
+
+      // 2. Modern AppSidebar UserFooter Radix DropdownMenu items (Help / GitHub / Discord)
+      document.querySelectorAll('[role="menu"], [data-radix-menu-content]').forEach((menu) => {
+        if (isInsideU8Overlay(menu) || menu.querySelector('[role="menu"]')) return;
+        const menuTxt = menu.textContent || '';
+        if (!menuTxt.includes('GitHub')) return;
+
+        const items = Array.from(menu.querySelectorAll('[role="menuitem"]'));
+        const githubIdx = items.findIndex((it) => (it.textContent || '').trim() === 'GitHub');
+
+        items.forEach((item, idx) => {
+          const txt = (item.textContent || '').trim();
+
+          if (txt === 'Discord') {
+            item.style.setProperty('display', 'none', 'important');
+            item.setAttribute('data-u8-removed', '1');
+            return;
+          }
+
+          if (txt === 'GitHub' && !item.dataset.u8GithubMenuBound) {
+            item.dataset.u8GithubMenuBound = '1';
+            const triggerGithub = (e) => {
+              const rect = item.getBoundingClientRect();
+              const snap = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+              setTimeout(() => openGithubPopoverForAnchor(snap), 10);
+            };
+            item.addEventListener('click', triggerGithub, true);
+            item.addEventListener(
+              'keydown',
+              (e) => {
+                if (e.key === 'Enter' || e.key === ' ') triggerGithub(e);
+              },
+              true,
+            );
+            return;
+          }
+
+          const isHelpItem =
+            (githubIdx > 0 && idx === githubIdx - 1) ||
+            ['Help', '帮助', 'ช่วยเหลือ', 'ヘルプ', 'Aide', 'Hilfe', 'Ayuda', '도움말', 'Справка'].includes(txt);
+          if (isHelpItem && !item.dataset.u8HelpMenuBound) {
+            item.dataset.u8HelpMenuBound = '1';
+            const triggerHelp = (e) => {
+              const rect = item.getBoundingClientRect();
+              const snap = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+              document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+              setTimeout(() => openHelpPopoverForAnchor(snap), 10);
+            };
+            item.addEventListener('click', triggerHelp, true);
+            item.addEventListener(
+              'keydown',
+              (e) => {
+                if (e.key === 'Enter' || e.key === ' ') triggerHelp(e);
+              },
+              true,
+            );
+          }
+        });
+      });
     }
 
     function enhanceRequiredModelStars() {
       if (!window.location.pathname.includes('/model')) return;
       const targets = new Set([
-        'Embedding', 'VLM', 'ASR', 'Rerank', 'TTS',
-        '决策模型', 'Decision Model', 'โมเดลการตัดสินใจ',
+        'embedding', 'vlm', 'asr', 'rerank', 'tts',
+        '决策模型', 'decision model', 'โมเดลการตัดสินใจ',
       ]);
 
       document.querySelectorAll('article label, article span, [role="dialog"] label, [role="dialog"] span').forEach((el) => {
         if (el.dataset.u8StarChecked) return;
         const txt = (el.textContent || '').trim();
-        if (!targets.has(txt)) return;
+        if (!targets.has(txt.toLowerCase())) return;
         const parentTxt = (el.parentElement && el.parentElement.textContent) || '';
         if (txt.startsWith('*') || parentTxt.trim().startsWith('*')) {
           el.dataset.u8StarChecked = '1';
@@ -2805,6 +3064,7 @@
 
     function enhanceLanguageDropdownAndThai(root) {
       document.querySelectorAll('[role="menu"], [data-radix-menu-content]').forEach((menu) => {
+        if (isInsideU8Overlay(menu) || menu.querySelector('[role="menu"]')) return;
         const txt = menu.textContent || '';
         if (!txt.includes('English') || (!txt.includes('简体中文') && !txt.includes("O'zbek") && !txt.includes('Azərbaycan'))) {
           return;

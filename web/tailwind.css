@@ -666,13 +666,14 @@
 
   .apple-pressable {
     transition-property:
-      transform, background-color, border-color, color, box-shadow, opacity;
+      scale, transform, background-color, border-color, color, box-shadow,
+      opacity;
     transition-duration: 210ms;
     transition-timing-function: var(--ease-apple-spring);
   }
 
   .apple-pressable:active:not(:disabled) {
-    transform: scale(0.97);
+    scale: 0.97;
     transition-duration: 100ms;
     transition-timing-function: var(--ease-apple-press);
   }
@@ -725,6 +726,7 @@
   .apple-card-interactive::after,
   .apple-specular-surface::before {
     transition-duration: 0.01ms !important;
+    scale: none !important;
     transform: none !important;
   }
 

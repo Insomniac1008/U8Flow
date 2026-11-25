@@ -131,7 +131,7 @@ const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
             <div
               className={cn(
                 itemClassName,
-                'absolute apple-thumb rounded-lg transition-all duration-300 ease-apple-spring',
+                'pointer-events-none absolute apple-thumb rounded-lg transition-all duration-300 ease-apple-spring',
               )}
               style={{
                 positionAnchor: `--${anchorNamePrefix}-${String(selectedValue).replace('/', '')}`,

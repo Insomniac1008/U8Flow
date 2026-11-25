@@ -64,7 +64,7 @@ function LoginFormContent({
       >
         <Form {...form}>
           <form
-            className="flex flex-col gap-8 text-text-primary "
+            className="relative z-[1] flex flex-col gap-8 text-text-primary "
             data-testid="auth-form"
             data-active={isActiveFace ? 'true' : undefined}
             onSubmit={form.handleSubmit(onCheck)}
@@ -177,7 +177,7 @@ function LoginFormContent({
         </Form>
 
         {title === 'login' && registerEnabled && (
-          <div className="mt-10 text-right">
+          <div className="relative z-[1] mt-10 text-right">
             <p className="text-text-disabled text-sm">
               {t('signInTip')}
               <Button
@@ -192,7 +192,7 @@ function LoginFormContent({
           </div>
         )}
         {title === 'register' && (
-          <div className="mt-10 text-right">
+          <div className="relative z-[1] mt-10 text-right">
             <p className="text-text-disabled text-sm">
               {t('signUpTip')}
               <Button
