@@ -19,6 +19,7 @@ import { AvatarUpload } from '@/components/avatar-upload';
 import PasswordInput from '@/components/originui/password-input';
 import { SelectWithSearch } from '@/components/originui/select-with-search';
 import Spotlight from '@/components/spotlight';
+import { useTheme } from '@/components/theme-provider';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -30,13 +31,20 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Modal } from '@/components/ui/modal/modal';
+import { Segmented } from '@/components/ui/segmented';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { LanguageAbbreviation, ThemeEnum } from '@/constants/common';
 import { useTranslate } from '@/hooks/common-hooks';
+import { useChangeLanguage } from '@/hooks/logic-hooks';
+import { supportedLanguages } from '@/locales/config';
 import { TimezoneList } from '@/pages/user-setting/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from 'i18next';
-import { Loader2Icon, PenLine } from 'lucide-react';
-import { FC, useEffect, useMemo } from 'react';
+import { Loader2Icon, Moon, PenLine, Sun } from 'lucide-react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { ProfileSettingWrapperCard } from '../components/user-setting-header';
 import { NICKNAME_MAX_LENGTH, NICKNAME_PATTERN } from './constants';
@@ -106,6 +114,73 @@ const passwordSchema = baseSchema
 
 const ProfilePage: FC = () => {
   const { t } = useTranslate('setting');
+  const { t: tGlobal, i18n } = useTranslation();
+  const { theme, setTheme } = useTheme();
+  const changeLanguage = useChangeLanguage();
+
+  const [docLang, setDocLang] = useState(
+    () => document.documentElement.lang || '',
+  );
+  const [u8GuideVisible, setU8GuideVisible] = useState(() => {
+    try {
+      const v = localStorage.getItem('ragflow_u8_guide_visible');
+      return v === null ? true : v === '1';
+    } catch {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setDocLang(document.documentElement.lang || '');
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['lang'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const languageOptions = useMemo(
+    () => [
+      ...supportedLanguages.map((lang) => ({
+        value: lang.code,
+        label: lang.displayName,
+      })),
+      { value: 'th', label: 'ภาษาไทย' },
+    ],
+    [],
+  );
+
+  const activeLanguageValue =
+    docLang.toLowerCase() === 'th'
+      ? 'th'
+      : i18n.language || LanguageAbbreviation.Zh;
+
+  const handlePreferenceLanguageChange = (value: string) => {
+    if (value === 'th') {
+      window.dispatchEvent(
+        new CustomEvent('u8-set-language', { detail: 'th' }),
+      );
+      return;
+    }
+    if (docLang.toLowerCase() === 'th') {
+      window.dispatchEvent(
+        new CustomEvent('u8-set-language', { detail: 'other' }),
+      );
+    }
+    changeLanguage(value);
+  };
+
+  const handleU8GuideToggle = (checked: boolean) => {
+    setU8GuideVisible(checked);
+    try {
+      localStorage.setItem('ragflow_u8_guide_visible', checked ? '1' : '0');
+    } catch {
+      // ignore storage errors
+    }
+    window.dispatchEvent(new CustomEvent('u8-guide-visibility-changed'));
+  };
 
   const {
     profile,
@@ -167,10 +242,10 @@ const ProfilePage: FC = () => {
       <Spotlight />
 
       {/* Main Content */}
-      <div className="max-w-3xl space-y-11 w-3/4 p-7">
+      <div className="w-full max-w-3xl space-y-10 p-7">
         {/* Name */}
         <div className="flex items-start gap-4 ">
-          <label className="w-[190px] text-sm font-medium">
+          <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
             {t('username')}
           </label>
           <div className="flex-1 flex items-center gap-4 min-w-0">
@@ -190,7 +265,9 @@ const ProfilePage: FC = () => {
 
         {/* Avatar */}
         <div className="flex items-start gap-4">
-          <label className="w-[190px] text-sm font-medium">{t('avatar')}</label>
+          <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
+            {t('avatar')}
+          </label>
           <div className="flex items-center gap-4">
             <AvatarUpload
               value={profile.avatar}
@@ -202,11 +279,11 @@ const ProfilePage: FC = () => {
 
         {/* Time Zone */}
         <div className="flex items-start gap-4">
-          <label className="w-[190px] text-sm font-medium">
+          <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
             {t('timezone')}
           </label>
-          <div className="flex-1 flex items-center gap-4">
-            <div className="text-sm text-text-primary border border-border-button flex-1 rounded-md py-1.5 px-2 empty:before:content-['_'] empty:before:whitespace-pre">
+          <div className="flex-1 flex items-center gap-4 min-w-0">
+            <div className="text-sm text-text-primary border border-border-button flex-1 min-w-0 truncate rounded-md py-1.5 px-2 empty:before:content-['_'] empty:before:whitespace-pre">
               {timezone}
             </div>
             <Button
@@ -221,8 +298,11 @@ const ProfilePage: FC = () => {
 
         {/* Email Address */}
         <div className="flex items-start gap-4">
-          <label className="w-[190px] text-sm font-medium"> {t('email')}</label>
-          <div className="flex-1 flex flex-col items-start gap-2">
+          <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
+            {' '}
+            {t('email')}
+          </label>
+          <div className="flex-1 min-w-0 flex flex-col items-start gap-2">
             <div className="text-sm text-text-primary flex-1 rounded-md py-1.5 ">
               {profile.email}
             </div>
@@ -235,11 +315,11 @@ const ProfilePage: FC = () => {
         {/* Password */}
         {(!profile.loginChannel || profile.loginChannel === 'password') && (
           <div className="flex items-start gap-4">
-            <label className="w-[190px] text-sm font-medium">
+            <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
               {t('password')}
             </label>
-            <div className="flex-1 flex items-center gap-4">
-              <div className="text-sm text-text-primary border border-border-button flex-1 rounded-md py-1.5 px-2">
+            <div className="flex-1 flex items-center gap-4 min-w-0">
+              <div className="text-sm text-text-primary border border-border-button flex-1 min-w-0 rounded-md py-1.5 px-2">
                 <span className="inline-block translate-y-0.5">********</span>
               </div>
               <Button
@@ -252,6 +332,85 @@ const ProfilePage: FC = () => {
             </div>
           </div>
         )}
+
+        <Separator className="my-6 bg-border-button/70" />
+
+        {/* Preferences Section (Appearance, Language, U8 Usage Guide) */}
+        <div className="space-y-8" data-u8-native-guide-toggle="1">
+          <div>
+            <h3 className="text-lg font-medium text-text-primary">
+              {t('preferences')}
+            </h3>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t('preferencesDescription')}
+            </p>
+          </div>
+
+          {/* Theme */}
+          <div className="flex items-center gap-4">
+            <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
+              {t('colorSchema')}
+            </label>
+            <div className="flex-1 min-w-0">
+              <Segmented
+                rounded="xl"
+                value={theme}
+                onChange={(val) => setTheme(val as ThemeEnum)}
+                className="w-fit"
+                options={[
+                  {
+                    value: ThemeEnum.Light,
+                    label: (
+                      <span className="flex items-center gap-1.5 px-1.5 text-sm">
+                        <Sun className="size-3.5" />
+                        {t('bright')}
+                      </span>
+                    ),
+                  },
+                  {
+                    value: ThemeEnum.Dark,
+                    label: (
+                      <span className="flex items-center gap-1.5 px-1.5 text-sm">
+                        <Moon className="size-3.5" />
+                        {t('dark')}
+                      </span>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Display Language */}
+          <div className="flex items-center gap-4">
+            <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium">
+              {tGlobal('sidebar.language')}
+            </label>
+            <div className="flex-1 min-w-0 max-w-xs">
+              <SelectWithSearch
+                options={languageOptions}
+                value={activeLanguageValue}
+                onChange={handlePreferenceLanguageChange}
+              />
+            </div>
+          </div>
+
+          {/* U8 Usage Guide */}
+          <div className="flex items-start gap-4">
+            <label className="w-36 lg:w-[190px] shrink-0 text-sm font-medium pt-0.5">
+              {t('u8Guide')}
+            </label>
+            <div className="flex-1 min-w-0 flex flex-col items-start gap-2">
+              <Switch
+                checked={u8GuideVisible}
+                onCheckedChange={handleU8GuideToggle}
+              />
+              <span className="text-xs text-text-secondary leading-relaxed">
+                {t('u8GuideDescription')}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {editType && (

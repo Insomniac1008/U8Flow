@@ -444,7 +444,11 @@
     '确定': 'ตกลง', 'OK': 'ตกลง',
     '删除': 'ลบ', 'Delete': 'ลบ',
     '编辑': 'แก้ไข', 'Edit': 'แก้ไข',
-    '设置': 'ตั้งค่า', 'Settings': 'ตั้งค่า',
+    '设置': 'ตั้งค่า', 'Settings': 'ตั้งค่า', '用户设置': 'ตั้งค่าผู้ใช้', 'User Settings': 'ตั้งค่าผู้ใช้',
+    '偏好设置': 'การตั้งค่าลักษณะ', 'Preferences': 'การตั้งค่าลักษณะ',
+    'U8 使用引导': 'คู่มือการใช้งาน U8', 'U8 Usage Guide': 'คู่มือการใช้งาน U8',
+    'RAGFlow 官方文档': 'เอกสาร RAGFlow', 'RAGFlow Documentation': 'เอกสาร RAGFlow',
+    '用友 U8 团队帮助': 'คู่มือทีม Yongyou U8', 'Yongyou U8 Team Help': 'คู่มือทีม Yongyou U8',
     '登录': 'เข้าสู่ระบบ', 'Sign in': 'เข้าสู่ระบบ', 'Login': 'เข้าสู่ระบบ',
     '登录账户': 'เข้าสู่ระบบบัญชีของคุณ', 'Sign in to your account': 'เข้าสู่ระบบบัญชีของคุณ',
     '注册': 'สมัครสมาชิก', 'Sign up': 'สมัครสมาชิก',
@@ -2497,7 +2501,13 @@
       let node;
       while ((node = walker.nextNode())) {
         const parent = node.parentElement;
-        if (!parent || isInsideU8Overlay(parent)) continue;
+        if (
+          !parent ||
+          isInsideU8Overlay(parent) ||
+          parent.closest('[data-u8-preserve-brand="1"]')
+        ) {
+          continue;
+        }
         const tag = parent.tagName;
         if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'INPUT') continue;
         if (node.nodeValue && node.nodeValue.includes('RAGFlow')) {
@@ -2785,8 +2795,12 @@
     function enhanceUserSettingGuideToggle() {
       const p = window.location.pathname || '';
 
-      // 1. User Settings left sidebar (/user-setting/profile, /user-setting/api)
+      // 1. User Settings left sidebar — skip injecting duplicate toggle when native Preferences toggle is mounted
       if (p.startsWith('/user-setting')) {
+        if (document.querySelector('[data-u8-native-guide-toggle="1"]')) {
+          document.querySelectorAll('aside [data-u8-guide-toggle="1"]').forEach((el) => el.remove());
+          return;
+        }
         const asides = Array.from(document.querySelectorAll('aside nav'));
         const settingNav = asides.find((n) => {
           if (isInsideU8Overlay(n)) return false;
@@ -2935,8 +2949,16 @@
       });
 
       // 2. Modern AppSidebar UserFooter Radix DropdownMenu items (Help / GitHub / Discord)
+      // Skip menus that already render native Radix submenus (`data-u8-native-menu="1"`).
       document.querySelectorAll('[role="menu"], [data-radix-menu-content]').forEach((menu) => {
-        if (isInsideU8Overlay(menu) || menu.querySelector('[role="menu"]')) return;
+        if (
+          isInsideU8Overlay(menu) ||
+          menu.getAttribute('data-u8-native-menu') === '1' ||
+          menu.closest('[data-u8-native-menu="1"]') ||
+          menu.querySelector('[role="menu"]')
+        ) {
+          return;
+        }
         const menuTxt = menu.textContent || '';
         if (!menuTxt.includes('GitHub')) return;
 
@@ -3036,7 +3058,13 @@
       let node;
       while ((node = walker.nextNode())) {
         const parent = node.parentElement;
-        if (!parent || isInsideU8Overlay(parent)) continue;
+        if (
+          !parent ||
+          isInsideU8Overlay(parent) ||
+          parent.closest('[data-u8-preserve-brand="1"]')
+        ) {
+          continue;
+        }
         const tag = parent.tagName;
         if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'INPUT') continue;
         const raw = node.nodeValue;
@@ -3253,6 +3281,19 @@
       if (currentActionRoute) {
         closePermissionPage();
         navigateTo(currentActionRoute);
+      }
+    });
+
+    window.addEventListener('u8-open-help-modal', () => {
+      openHelpModal();
+    });
+    window.addEventListener('u8-guide-visibility-changed', () => {
+      applyGuideVisibility();
+      syncAllGuideToggleSwitches();
+    });
+    window.addEventListener('u8-set-language', (ev) => {
+      if (ev && ev.detail) {
+        applyLanguageChange(String(ev.detail));
       }
     });
 

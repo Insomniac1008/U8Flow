@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
@@ -31,23 +30,27 @@ import { cn } from '@/lib/utils';
 import { supportedLanguages } from '@/locales/config';
 import { TenantMembershipStatus } from '@/pages/user-setting/constants';
 import {
+  LucideBookOpen,
+  LucideCheck,
   LucideChevronLeft,
   LucideCircleHelp,
+  LucideCompass,
+  LucideExternalLink,
   LucideLanguages,
   LucideLogOut,
   LucideMoon,
+  LucideSettings,
   LucideSun,
   LucideUnplug,
-  LucideUser,
 } from 'lucide-react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BellButton } from '../bell-button';
 import { useSidebarCollapse } from './use-sidebar-collapse';
 
 const HelpUrl = 'https://ragflow.io/docs/dev/category/user-guides';
 const GitHubUrl = 'https://github.com/infiniflow/ragflow';
-const DiscordUrl = 'https://discord.com/invite/NjYzJD3GM3';
+const AuthorGitHubUrl = 'https://github.com/Insomniac1008';
 
 export function UserFooter() {
   const { t, i18n } = useTranslation();
@@ -62,7 +65,31 @@ export function UserFooter() {
   const {
     data: { language = LanguageAbbreviation.Zh, avatar, nickname, email },
   } = useFetchUserInfo();
+
+  const [docLang, setDocLang] = useState(
+    () => document.documentElement.lang || '',
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setDocLang(document.documentElement.lang || '');
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['lang'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const isThaiMode = docLang.toLowerCase() === 'th';
   const activeLanguage = i18n?.language || language;
+  const activeLanguageLabel = useMemo(() => {
+    if (isThaiMode) return 'ภาษาไทย';
+    return (
+      supportedLanguages.find((x) => x.code === activeLanguage)?.displayName ||
+      ''
+    );
+  }, [activeLanguage, isThaiMode]);
 
   const { data: tenantData } = useListTenant();
   const hasNotification = useMemo(
@@ -92,12 +119,16 @@ export function UserFooter() {
     window.open(HelpUrl, '_blank', 'noreferrer,noopener');
   }, []);
 
+  const openU8Help = useCallback(() => {
+    window.dispatchEvent(new CustomEvent('u8-open-help-modal'));
+  }, []);
+
   const openGitHub = useCallback(() => {
     window.open(GitHubUrl, '_blank', 'noreferrer,noopener');
   }, []);
 
-  const openDiscord = useCallback(() => {
-    window.open(DiscordUrl, '_blank', 'noreferrer,noopener');
+  const openAuthorGitHub = useCallback(() => {
+    window.open(AuthorGitHubUrl, '_blank', 'noreferrer,noopener');
   }, []);
 
   const handleLogout = useCallback(() => {
@@ -158,77 +189,220 @@ export function UserFooter() {
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent side="top" align="start" className="w-56">
-            <DropdownMenuLabel className="truncate font-normal text-text-secondary">
-              {email}
-            </DropdownMenuLabel>
-            <EnterpriseSidebarTenantSwitcher />
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem onClick={navigateToUserSettingProfile}>
-              <LucideUser />
-              {t('setting.profile')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={navigateToUserSettingApi}>
-              <LucideUnplug />
-              {t('setting.api')}
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem onClick={toggleTheme}>
-              <ThemeIcon />
-              {t('sidebar.theme')}
-            </DropdownMenuItem>
-
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <LucideLanguages />
-                {t('sidebar.language')}
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent>
-                {supportedLanguages.map((x) => (
-                  <DropdownMenuItem
-                    key={x.code}
-                    onClick={handleLanguageChange(x.code)}
-                  >
-                    <span
-                      className={cn(
-                        x.code === activeLanguage && 'font-semibold',
-                      )}
-                    >
-                      {x.displayName}
+          <DropdownMenuContent
+            side="top"
+            align="start"
+            sideOffset={8}
+            data-u8-native-menu="1"
+            className="w-64 rounded-2xl p-1.5"
+          >
+            {/* Compact Antigravity-style account header */}
+            <div className="flex items-center gap-2.5 px-2 py-2">
+              <RAGFlowAvatar
+                name={nickname}
+                avatar={avatar}
+                isPerson
+                className="size-9 shrink-0"
+              />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="truncate text-sm font-medium text-text-primary">
+                    {nickname || email}
+                  </span>
+                  {version && (
+                    <span className="shrink-0 rounded-md border-0.5 border-border-button bg-bg-card px-1.5 py-0.5 text-[10px] font-medium leading-none text-text-secondary">
+                      {version}
                     </span>
-                  </DropdownMenuItem>
-                ))}
+                  )}
+                </div>
+                {email && (
+                  <div className="truncate text-xs text-text-secondary mt-0.5">
+                    {email}
+                  </div>
+                )}
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                aria-label={t('sidebar.theme')}
+                title={`${t('sidebar.theme')}：${isDark ? t('setting.dark') : t('setting.bright')}`}
+                onClick={toggleTheme}
+                className="shrink-0 rounded-lg text-text-secondary hover:text-text-primary"
+              >
+                <ThemeIcon className="size-4" />
+              </Button>
+            </div>
+
+            <EnterpriseSidebarTenantSwitcher />
+            <DropdownMenuSeparator className="my-1.5 bg-border-button/60" />
+
+            {/* Core Settings & API */}
+            <DropdownMenuItem
+              justifyBetween={false}
+              onClick={navigateToUserSettingProfile}
+              className="gap-2.5 px-2.5 py-2 text-text-primary cursor-pointer"
+            >
+              <LucideSettings className="size-4 text-text-secondary" />
+              <span className="flex-1 truncate">{t('header.setting')}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              justifyBetween={false}
+              onClick={navigateToUserSettingApi}
+              className="gap-2.5 px-2.5 py-2 text-text-primary cursor-pointer"
+            >
+              <LucideUnplug className="size-4 text-text-secondary" />
+              <span className="flex-1 truncate">{t('setting.api')}</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator className="my-1.5 bg-border-button/60" />
+
+            {/* Language, Help, GitHub — all native hover/click Submenus keeping parent open */}
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="gap-2.5 px-2.5 py-2 text-text-primary">
+                <LucideLanguages className="size-4 text-text-secondary" />
+                <span className="flex-1 truncate">{t('sidebar.language')}</span>
+                {activeLanguageLabel && (
+                  <span className="text-xs text-text-secondary truncate max-w-[84px]">
+                    {activeLanguageLabel}
+                  </span>
+                )}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent
+                sideOffset={8}
+                className="w-44 max-h-80 rounded-2xl p-1.5"
+              >
+                {supportedLanguages.map((x) => {
+                  const isActive = !isThaiMode && x.code === activeLanguage;
+                  return (
+                    <DropdownMenuItem
+                      key={x.code}
+                      onClick={handleLanguageChange(x.code)}
+                      className="cursor-pointer px-2.5 py-1.5 text-text-primary"
+                    >
+                      <span
+                        className={cn(
+                          isActive && 'font-semibold text-accent-primary',
+                        )}
+                      >
+                        {x.displayName}
+                      </span>
+                      {isActive && (
+                        <LucideCheck className="size-3.5 text-accent-primary" />
+                      )}
+                    </DropdownMenuItem>
+                  );
+                })}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
 
-            <DropdownMenuSeparator />
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="gap-2.5 px-2.5 py-2 text-text-primary">
+                <LucideCircleHelp className="size-4 text-text-secondary" />
+                <span className="flex-1 truncate">{t('header.help')}</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent
+                sideOffset={8}
+                data-u8-preserve-brand="1"
+                className="w-64 rounded-2xl p-1.5"
+              >
+                <DropdownMenuItem
+                  justifyBetween={false}
+                  onClick={openHelp}
+                  className="items-start gap-2.5 px-2.5 py-2 cursor-pointer"
+                >
+                  <LucideBookOpen className="size-4 mt-0.5 text-text-secondary shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-medium text-text-primary flex items-center gap-1">
+                      <span className="truncate">
+                        {t('setting.helpRagflowTitle')}
+                      </span>
+                      <LucideExternalLink className="size-3 text-text-secondary/70 shrink-0" />
+                    </div>
+                    <div className="text-xs text-text-secondary mt-0.5">
+                      {t('setting.helpRagflowDesc')}
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  justifyBetween={false}
+                  onClick={openU8Help}
+                  className="items-start gap-2.5 px-2.5 py-2 cursor-pointer"
+                >
+                  <LucideCompass className="size-4 mt-0.5 text-accent-primary shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-medium text-text-primary">
+                      {t('setting.helpU8Title')}
+                    </div>
+                    <div className="text-xs text-text-secondary mt-0.5">
+                      {t('setting.helpU8Desc')}
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
 
-            <DropdownMenuItem onClick={openHelp}>
-              <LucideCircleHelp />
-              {t('header.help')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={openGitHub}>
-              <IconFontFill name="GitHub" />
-              {t('header.github')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={openDiscord}>
-              <IconFontFill name="a-DiscordIconSVGVectorIcon" />
-              {t('header.discord')}
-            </DropdownMenuItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="gap-2.5 px-2.5 py-2 text-text-primary">
+                <IconFontFill name="GitHub" className="text-text-secondary" />
+                <span className="flex-1 truncate">{t('header.github')}</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent
+                sideOffset={8}
+                data-u8-preserve-brand="1"
+                className="w-64 rounded-2xl p-1.5"
+              >
+                <DropdownMenuItem
+                  justifyBetween={false}
+                  onClick={openGitHub}
+                  className="items-start gap-2.5 px-2.5 py-2 cursor-pointer"
+                >
+                  <IconFontFill
+                    name="GitHub"
+                    className="mt-0.5 text-text-secondary shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-medium text-text-primary flex items-center gap-1">
+                      <span className="truncate">RAGFlow GitHub</span>
+                      <LucideExternalLink className="size-3 text-text-secondary/70 shrink-0" />
+                    </div>
+                    <div className="text-xs text-text-secondary mt-0.5">
+                      {t('setting.githubRagflowDesc')}
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  justifyBetween={false}
+                  onClick={openAuthorGitHub}
+                  className="items-start gap-2.5 px-2.5 py-2 cursor-pointer"
+                >
+                  <IconFontFill
+                    name="GitHub"
+                    className="mt-0.5 text-accent-primary shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-medium text-text-primary flex items-center gap-1">
+                      <span className="truncate">Insomniac1008 (IcyFrog)</span>
+                      <LucideExternalLink className="size-3 text-text-secondary/70 shrink-0" />
+                    </div>
+                    <div className="text-xs text-text-secondary mt-0.5">
+                      {t('setting.githubAuthorDesc')}
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
 
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="my-1.5 bg-border-button/60" />
 
-            {version && (
-              <DropdownMenuLabel className="text-xs font-normal text-accent-primary">
-                {version}
-              </DropdownMenuLabel>
-            )}
-            <DropdownMenuItem onClick={handleLogout}>
-              <LucideLogOut />
-              {t('setting.logout')}
+            {/* Sign out */}
+            <DropdownMenuItem
+              justifyBetween={false}
+              onClick={handleLogout}
+              className="gap-2.5 px-2.5 py-2 text-text-secondary focus:bg-state-error/10 focus:text-state-error cursor-pointer"
+            >
+              <LucideLogOut className="size-4" />
+              <span className="flex-1 truncate">{t('setting.logout')}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
