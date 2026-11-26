@@ -149,6 +149,7 @@ export default {
       integrations: 'Integrations',
       team: 'Team',
       mcp: 'MCP',
+      u8Db: 'U8 Database',
       theme: 'Theme',
       language: 'Language',
       version: 'Version',

@@ -61,6 +61,7 @@ export enum Routes {
   DataSource = '/data-source',
   DataSourceDetailPage = '/data-source-detail-page',
   ChatChannel = '/chat-channel',
+  U8Db = '/u8-db',
   ProfileMcp = `${ProfileSetting}${Mcp}`,
   ProfileTeam = `${ProfileSetting}${Team}`,
   ProfilePlan = `${ProfileSetting}${Plan}`,
@@ -225,6 +226,14 @@ const routeConfigOptions = [
           />
         ),
       },
+      {
+        path: `${Routes.UserSetting}${Routes.U8Db}`,
+        element: (
+          <QueryPreservingNavigate
+            to={`${Routes.Integrations}${Routes.U8Db}`}
+          />
+        ),
+      },
     ],
   },
   {
@@ -363,6 +372,10 @@ const routeConfigOptions = [
           {
             path: `${Routes.Integrations}${Routes.Mcp}`,
             Component: () => import('@/pages/user-setting/mcp'),
+          },
+          {
+            path: `${Routes.Integrations}${Routes.U8Db}`,
+            Component: () => import('@/pages/user-setting/u8-db'),
           },
           {
             path: Routes.Team,

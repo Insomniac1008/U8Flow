@@ -129,6 +129,7 @@ export default {
       integrations: '集成',
       team: '团队',
       mcp: 'MCP',
+      u8Db: 'U8 数据库',
       theme: '主题',
       language: '语言',
       version: '版本',

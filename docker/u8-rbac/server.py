@@ -270,6 +270,20 @@ def get_policy_for_email(email: str) -> dict:
     return dict(zip(MODULES, row[:6]))
 
 
+def get_dept_for_email(email: str) -> str:
+    em = (email or "").strip().lower()
+    if not em:
+        return ""
+    with DB_LOCK:
+        conn = sqlite3.connect(DB_PATH)
+        row = conn.execute(
+            "SELECT dept FROM member_policies WHERE email = ?",
+            (em,),
+        ).fetchone()
+        conn.close()
+    return str(row[0] or "") if row else ""
+
+
 def get_dept_names() -> dict:
     with DB_LOCK:
         conn = sqlite3.connect(DB_PATH)
@@ -671,6 +685,7 @@ class RBACHandler(BaseHTTPRequestHandler):
                     "data": {
                         "email": user["email"],
                         "nickname": user["nickname"],
+                        "dept": get_dept_for_email(user["email"]),
                         "is_owner": is_adm,  # backward-compatible flag for frontend admin entry
                         "is_primary_owner": is_primary,
                         "is_admin": is_adm,

@@ -72,6 +72,7 @@ describe('getActiveIntegrationKey', () => {
     ],
     [`${Routes.Integrations}${Routes.ChatChannel}`, 'chat-channel'],
     [`${Routes.Integrations}${Routes.Mcp}`, 'mcp'],
+    [`${Routes.Integrations}${Routes.U8Db}`, 'u8-db'],
   ])('maps %s to %s', (pathname, expected) => {
     expect(getActiveIntegrationKey(pathname)).toBe(expected);
   });

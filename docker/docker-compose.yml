@@ -51,6 +51,8 @@ services:
       - KVROCKS_PORT=6379
       - GOMEMLIMIT=1500MiB
       - GOGC=50
+      # Allow self-hosted private-network MCP servers (e.g., http://u8-db:9395/mcp) and LAN U8 SQL Server
+      - ALLOW_ANY_HOST=1
     networks:
       - ragflow
     restart: unless-stopped
@@ -76,9 +78,34 @@ services:
       - ragflow
     restart: unless-stopped
 
+  u8-db:
+    build:
+      context: ./u8-db
+      dockerfile: Dockerfile
+    image: u8flow/u8-db:latest
+    depends_on:
+      - u8-rbac
+    environment:
+      - U8_DB_PORT=9395
+      - U8_RBAC_API_URL=http://u8-rbac:9390
+      - U8_DB_DATA_PATH=/data/u8_db.db
+      - U8_DB_SECRET_PATH=/data/.secret_key
+      - U8_DB_MCP_URL=http://u8-db:9395/mcp
+      - U8_DB_MCP_NAME=u8_database_readonly
+    volumes:
+      - u8_db_data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    mem_limit: 256m
+    networks:
+      - ragflow
+    restart: unless-stopped
+
 volumes:
   ragflow_logs:
     driver: local
   u8_rbac_data:
+    driver: local
+  u8_db_data:
     driver: local
 

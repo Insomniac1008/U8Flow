@@ -116,6 +116,11 @@ export const IntegrationChildren: IntegrationChild[] = [
     path: `${Routes.Integrations}${Routes.Mcp}`,
     labelKey: 'sidebar.mcp',
   },
+  {
+    key: 'u8-db',
+    path: `${Routes.Integrations}${Routes.U8Db}`,
+    labelKey: 'sidebar.u8Db',
+  },
 ];
 
 export const IntegrationsNavItem = {
