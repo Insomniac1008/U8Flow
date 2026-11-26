@@ -2203,9 +2203,16 @@ Example: Virtual Hosted Style`,
       colorSchemaPlaceholder: 'select your color schema',
       bright: 'Light',
       dark: 'Dark',
-      preferences: 'Preferences',
+      lightModeTitle: 'Light Mode',
+      lightModeDesc: 'Crisp translucent daytime Liquid Glass appearance',
+      darkModeTitle: 'Dark Mode',
+      darkModeDesc: 'Low-glare deep nocturnal Liquid Glass appearance',
+      preferences: 'Appearance & Preferences',
       preferencesDescription:
         'Manage appearance, display language, and U8 guide',
+      languageDescription: 'Switch display language across the workspace',
+      apiDescription:
+        'Manage API keys, HTTP API reference, and Langfuse settings',
       u8Guide: 'U8 Usage Guide',
       u8GuideDescription:
         'Show the floating Yongyou U8 guide widget in the bottom-right corner',

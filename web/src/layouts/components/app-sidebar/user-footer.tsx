@@ -19,7 +19,6 @@ import {
   EnterpriseSidebarTenantSwitcher,
 } from '@/ee/layouts/components/header-enterprise';
 import { useChangeLanguage } from '@/hooks/logic-hooks';
-import { useNavigatePage } from '@/hooks/logic-hooks/navigate-hooks';
 import { useLogout } from '@/hooks/use-login-request';
 import {
   useFetchSystemVersion,
@@ -29,6 +28,7 @@ import {
 import { cn } from '@/lib/utils';
 import { supportedLanguages } from '@/locales/config';
 import { TenantMembershipStatus } from '@/pages/user-setting/constants';
+import type { SettingsModalTab } from '@/pages/user-setting/floating-settings-modal';
 import {
   LucideBookOpen,
   LucideCheck,
@@ -43,10 +43,21 @@ import {
   LucideSun,
   LucideUnplug,
 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { BellButton } from '../bell-button';
 import { useSidebarCollapse } from './use-sidebar-collapse';
+
+const LazyFloatingSettingsModal = lazy(
+  () => import('@/pages/user-setting/floating-settings-modal'),
+);
 
 const HelpUrl = 'https://ragflow.io/docs/dev/category/user-guides';
 const GitHubUrl = 'https://github.com/infiniflow/ragflow';
@@ -54,13 +65,21 @@ const AuthorGitHubUrl = 'https://github.com/Insomniac1008';
 
 export function UserFooter() {
   const { t, i18n } = useTranslation();
-  const { navigateToUserSettingProfile, navigateToUserSettingApi } =
-    useNavigatePage();
   const changeLanguage = useChangeLanguage();
   const { logout } = useLogout();
   const { theme, setTheme } = useTheme();
   const isDark = useIsDarkTheme();
   const { collapsed, toggleCollapsed } = useSidebarCollapse();
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState<SettingsModalTab>('profile');
+  const [settingsModalKey, setSettingsModalKey] = useState(0);
+
+  const openFloatingSettings = useCallback((tab: SettingsModalTab) => {
+    setSettingsTab(tab);
+    setSettingsModalKey((k) => k + 1);
+    setSettingsOpen(true);
+  }, []);
 
   const {
     data: { language = LanguageAbbreviation.Zh, avatar, nickname, email },
@@ -237,10 +256,10 @@ export function UserFooter() {
             <EnterpriseSidebarTenantSwitcher />
             <DropdownMenuSeparator className="my-1.5 bg-border-button/60" />
 
-            {/* Core Settings & API */}
+            {/* Core Settings & API (opens Antigravity floating overlay modal) */}
             <DropdownMenuItem
               justifyBetween={false}
-              onClick={navigateToUserSettingProfile}
+              onClick={() => openFloatingSettings('profile')}
               className="gap-2.5 px-2.5 py-2 text-text-primary cursor-pointer"
             >
               <LucideSettings className="size-4 text-text-secondary" />
@@ -248,7 +267,7 @@ export function UserFooter() {
             </DropdownMenuItem>
             <DropdownMenuItem
               justifyBetween={false}
-              onClick={navigateToUserSettingApi}
+              onClick={() => openFloatingSettings('api')}
               className="gap-2.5 px-2.5 py-2 text-text-primary cursor-pointer"
             >
               <LucideUnplug className="size-4 text-text-secondary" />
@@ -419,6 +438,17 @@ export function UserFooter() {
           </Button>
         )}
       </div>
+
+      {settingsOpen && (
+        <Suspense fallback={null}>
+          <LazyFloatingSettingsModal
+            key={settingsModalKey}
+            open={settingsOpen}
+            initialTab={settingsTab}
+            onOpenChange={setSettingsOpen}
+          />
+        </Suspense>
+      )}
     </footer>
   );
 }
