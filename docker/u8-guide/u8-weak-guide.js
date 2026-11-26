@@ -446,7 +446,13 @@
     '编辑': 'แก้ไข', 'Edit': 'แก้ไข',
     '设置': 'ตั้งค่า', 'Settings': 'ตั้งค่า',
     '登录': 'เข้าสู่ระบบ', 'Sign in': 'เข้าสู่ระบบ', 'Login': 'เข้าสู่ระบบ',
+    '登录账户': 'เข้าสู่ระบบบัญชีของคุณ', 'Sign in to your account': 'เข้าสู่ระบบบัญชีของคุณ',
     '注册': 'สมัครสมาชิก', 'Sign up': 'สมัครสมาชิก',
+    '创建账户': 'สร้างบัญชีใหม่', 'Create an account': 'สร้างบัญชีใหม่',
+    '记住我': 'จดจำฉันไว้', 'Remember me': 'จดจำฉันไว้',
+    '没有帐户？': 'ยังไม่มีบัญชี?', 'Don’t have an account?': 'ยังไม่มีบัญชี?', "Don't have an account?": 'ยังไม่มีบัญชี?',
+    '已经有帐户？': 'มีบัญชีอยู่แล้ว?', 'Already have an account?': 'มีบัญชีอยู่แล้ว?',
+    '继续': 'ดำเนินการต่อ', 'Continue': 'ดำเนินการต่อ',
     '退出登录': 'ออกจากระบบ', '登出': 'ออกจากระบบ', 'Log out': 'ออกจากระบบ', 'Logout': 'ออกจากระบบ',
     '邮箱': 'อีเมล', 'Email': 'อีเมล',
     '密码': 'รหัสผ่าน', 'Password': 'รหัสผ่าน',
@@ -1501,8 +1507,20 @@
       return deptNames[code] ? deptNames[code] : t('permDeptPrefix', { code });
     }
 
+    function isLoginRoute(pathname) {
+      const p = (pathname || window.location.pathname || '/').toLowerCase();
+      return (
+        p === '/login' ||
+        p.startsWith('/login/') ||
+        p === '/login-next' ||
+        p.startsWith('/login-next/') ||
+        p === '/logout'
+      );
+    }
+
     function applyGuideVisibility() {
-      host.style.display = isGuideVisible() ? '' : 'none';
+      const hiddenOnAuth = isLoginRoute(window.location.pathname);
+      host.style.display = !hiddenOnAuth && isGuideVisible() ? '' : 'none';
     }
 
     function clampHostPosition() {
@@ -1746,6 +1764,10 @@
     }
 
     function renderReadonlyBar() {
+      if (isLoginRoute(window.location.pathname)) {
+        readonlyTopPill.classList.add('is-hidden');
+        return;
+      }
       const mod = routeToModule(window.location.pathname);
       const isReadonly =
         Boolean(meState && !meState.is_owner && mod && meState.permissions && meState.permissions[mod] === 'read') &&
@@ -1760,6 +1782,7 @@
     }
 
     function renderRoute() {
+      applyGuideVisibility();
       enforceMemberRouteGuard();
       renderReadonlyBar();
       const guide = getRouteGuide(window.location.pathname);

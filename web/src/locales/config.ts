@@ -50,7 +50,7 @@ export const supportedLanguages = supportedLanguageCodes.map((code) => {
 });
 
 export const DEFAULT_LANGUAGE_CODE =
-  import.meta.env.VITE_DEFAULT_LANGUAGE_CODE || LanguageAbbreviation.En;
+  import.meta.env.VITE_DEFAULT_LANGUAGE_CODE || LanguageAbbreviation.Zh;
 
 // Enterprise customization overlays: the enterprise repository carries real
 // implementations under `web/src/ee/locales/`; upstream ships no-op stubs
@@ -73,7 +73,7 @@ const resources = {
 const updateDocumentLocale = (lng: string) => {
   document.documentElement.lang = lng;
   document.documentElement.dir = 'ltr';
-  dayjs.locale(lng === 'zh' ? 'zh-cn' : lng);
+  dayjs.locale(lng === 'zh' || lng === LanguageAbbreviation.Zh ? 'zh-cn' : lng);
 };
 
 i18n

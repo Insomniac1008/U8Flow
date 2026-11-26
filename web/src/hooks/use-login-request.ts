@@ -46,10 +46,6 @@ export const useLogin = () => {
     mutationFn: async (params: { email: string; password: string }) => {
       const { data: res = {}, response } = await userService.login(params);
       if (res.code === 0) {
-        // The language is based on the .lng stored in the client's local storage.
-        // The language stored in the database is for agent template resources,
-        // since the agent template resources are stored on the server.
-        saveSetting({ language: storage.getLanguage() });
         const { data } = res;
         const authorization = response.headers.get(Authorization);
         const token = data.access_token;
@@ -63,6 +59,13 @@ export const useLogin = () => {
           token,
           userInfo: JSON.stringify(userInfo),
         });
+        // The language is based on the .lng stored in the client's local storage.
+        // The language stored in the database is for agent template resources,
+        // since the agent template resources are stored on the server.
+        const storedLang = storage.getLanguage();
+        if (storedLang && storedLang !== 'th') {
+          saveSetting({ language: storedLang });
+        }
       }
       return res.code;
     },

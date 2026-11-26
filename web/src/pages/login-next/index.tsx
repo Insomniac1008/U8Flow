@@ -10,6 +10,12 @@ import Spotlight from '@/components/spotlight';
 import { Button, ButtonLoading } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
   Form,
   FormControl,
   FormField,
@@ -19,7 +25,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import {
+  changeLanguageAsync,
+  DEFAULT_LANGUAGE_CODE,
+  supportedLanguages,
+} from '@/locales/config';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { LucideCheck, LucideChevronDown, LucideLanguages } from 'lucide-react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { NICKNAME_PATTERN } from '../user-setting/profile/constants';
@@ -216,11 +228,42 @@ const Login = () => {
   const { navigateToHome } = useNavigatePage();
   const { login, loading: signLoading } = useLogin();
   const { register, loading: registerLoading } = useRegister();
-  const { t } = useTranslation('translation', { keyPrefix: 'login' });
+  const { t, i18n } = useTranslation('translation', { keyPrefix: 'login' });
   const { t: tSetting } = useTranslation('translation', {
     keyPrefix: 'setting',
   });
+  const { t: tSidebar } = useTranslation('translation', {
+    keyPrefix: 'sidebar',
+  });
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const [docLang, setDocLang] = useState(
+    () => document.documentElement.lang || '',
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setDocLang(document.documentElement.lang || '');
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['lang'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const isThaiMode = docLang.toLowerCase() === 'th';
+  const activeLanguageCode = i18n.language || DEFAULT_LANGUAGE_CODE;
+  const currentLanguageLabel = isThaiMode
+    ? 'ภาษาไทย'
+    : supportedLanguages.find((lang) => lang.code === activeLanguageCode)
+        ?.displayName ||
+      supportedLanguages.find((lang) => lang.code === DEFAULT_LANGUAGE_CODE)
+        ?.displayName ||
+      '简体中文';
+
+  const handleLanguageSelect = (code: string) => {
+    void changeLanguageAsync(code);
+  };
 
   const loading = signLoading || registerLoading;
   const { config } = useSystemConfig();
@@ -332,15 +375,59 @@ const Login = () => {
         <BgSvg isPaused />
 
         <div className="z-20 absolute top-3 flex flex-col items-center mb-12 w-full text-text-primary">
-          <div className="flex items-center mb-4 w-full pl-10 pt-10 ">
-            <div className="w-12 h-12 p-2 rounded-lg flex items-center justify-center mr-3">
-              <img
-                src={'/logo.svg'}
-                alt="logo"
-                className="size-8 mr-[12] cursor-pointer"
-              />
+          <div className="flex items-center justify-between mb-4 w-full px-10 pt-10 ">
+            <div className="flex items-center">
+              <div className="w-12 h-12 p-2 rounded-lg flex items-center justify-center mr-3">
+                <img
+                  src={'/logo.svg'}
+                  alt="logo"
+                  className="size-8 mr-[12] cursor-pointer"
+                />
+              </div>
+              <div className="text-xl font-bold self-center">RAGFlow</div>
             </div>
-            <div className="text-xl font-bold self-center">RAGFlow</div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  data-testid="login-language-switcher"
+                  aria-label={tSidebar('language')}
+                  className="h-9 rounded-full px-3.5 gap-2 apple-glass-card border-0.5 text-sm font-medium text-text-primary"
+                >
+                  <LucideLanguages className="size-4 text-accent-primary" />
+                  <span>{currentLanguageLabel}</span>
+                  <LucideChevronDown className="size-3.5 text-text-secondary" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                sideOffset={8}
+                className="w-44 max-h-80 overflow-y-auto scrollbar-auto"
+              >
+                {supportedLanguages.map((x) => {
+                  const isActive = !isThaiMode && activeLanguageCode === x.code;
+                  return (
+                    <DropdownMenuItem
+                      key={x.code}
+                      onClick={() => handleLanguageSelect(x.code)}
+                      className="flex items-center justify-between gap-2 cursor-pointer"
+                    >
+                      <span
+                        className={cn(
+                          isActive && 'font-semibold text-accent-primary',
+                        )}
+                      >
+                        {x.displayName}
+                      </span>
+                      {isActive && (
+                        <LucideCheck className="size-3.5 text-accent-primary" />
+                      )}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <h1 className="text-[36px] font-medium  text-center mb-2">
             {t('title')}

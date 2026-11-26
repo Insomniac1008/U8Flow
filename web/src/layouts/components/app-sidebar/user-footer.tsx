@@ -13,7 +13,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Domain, ThemeEnum } from '@/constants/common';
+import { Domain, LanguageAbbreviation, ThemeEnum } from '@/constants/common';
 import {
   EnterpriseHeaderPlanBadge,
   EnterpriseHeaderTicketsLink,
@@ -50,7 +50,7 @@ const GitHubUrl = 'https://github.com/infiniflow/ragflow';
 const DiscordUrl = 'https://discord.com/invite/NjYzJD3GM3';
 
 export function UserFooter() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { navigateToUserSettingProfile, navigateToUserSettingApi } =
     useNavigatePage();
   const changeLanguage = useChangeLanguage();
@@ -60,8 +60,9 @@ export function UserFooter() {
   const { collapsed, toggleCollapsed } = useSidebarCollapse();
 
   const {
-    data: { language = 'en', avatar, nickname, email },
+    data: { language = LanguageAbbreviation.Zh, avatar, nickname, email },
   } = useFetchUserInfo();
+  const activeLanguage = i18n?.language || language;
 
   const { data: tenantData } = useListTenant();
   const hasNotification = useMemo(
@@ -192,7 +193,9 @@ export function UserFooter() {
                     onClick={handleLanguageChange(x.code)}
                   >
                     <span
-                      className={cn(x.code === language && 'font-semibold')}
+                      className={cn(
+                        x.code === activeLanguage && 'font-semibold',
+                      )}
                     >
                       {x.displayName}
                     </span>
